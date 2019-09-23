@@ -1,0 +1,77 @@
+{
+  "name": "tabless",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.4.2",
+    "@material-ui/styles": "^4.4.1",
+    "axios": "^0.19.0",
+    "react": "16.9.0",
+    "react-anime": "^2.2.0",
+    "react-dom": "16.9.0",
+    "react-router-dom": "^5.0.1",
+    "react-sortable-hoc": "^1.10.1",
+    "rxjs": "^6.5.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.4",
+    "@types/jest": "^24.0.18",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "customize-cra": "^0.7.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^6.4.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "react-app-rewired": "^2.1.3",
+    "react-scripts": "^3.1.2"
+  },
+  "babel": {
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      [
+        "@babel/plugin-proposal-class-properties",
+        {
+          "loose": true
+        }
+      ]
+    ]
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "endOfLine": "lf",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
