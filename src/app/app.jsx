@@ -10,6 +10,7 @@ import { AppBar } from './components/bar.component';
 import { HomePage } from './pages/home.page';
 import { TabPage } from './pages/tab.page';
 import { SharePage } from './pages/share.page';
+import Login from './components/Login'
 
 export class App extends React.Component {
   render() {
@@ -20,6 +21,7 @@ export class App extends React.Component {
           <Router>
             <AppBar />
             <Switch>
+              <Route exact path="/login" component={Login} />
               <Route exact path="/" component={HomePage} />
               <Route exact path="/tab/:id" component={TabPage} />
               <Route exact path="/share/:uuid" component={SharePage} />
