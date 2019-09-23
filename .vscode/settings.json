@@ -1,4 +1,6 @@
 {
   "god.tsconfig": "./tsconfig.json",
-  "eslint.enable": true
+  "eslint.enable": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveTimeout": 250
 }
