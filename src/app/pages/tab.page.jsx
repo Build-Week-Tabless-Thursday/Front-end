@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/styles';
 import { AppBar, CardMedia, Icon, IconButton, Toolbar } from '@material-ui/core';
 
+import { getTabsAction } from '../state/actions';
 import { Input } from '../components/reusable/input.component';
 
 const styles = theme => ({
@@ -34,23 +37,31 @@ const styles = theme => ({
   },
 });
 
+@connect(
+  state => ({
+    tabs: state.tabs.list,
+  }),
+  { getTabsAction }
+)
+@withRouter
 @withStyles(styles)
 class TabPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      title: 'Instacart',
-      url: 'https://www.instacart.com/',
-      category: 'Personal',
-      due: new Date(),
-      note: '',
-      preview:
-        'https://images2.minutemediacdn.com/image/upload/c_crop,h_1193,w_2121,x_0,y_64/f_auto,q_auto,w_1100/v1565279671/shape/mentalfloss/578211-gettyimages-542930526.jpg',
-    };
-    console.log(this.state);
+
+    const { tabs, getTabsAction } = props;
+    if (tabs.length === 0) getTabsAction();
 
     this.handleChange = this.handleChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+  }
+
+  static getDerivedStateFromProps(props) {
+    const { tabs, match } = props;
+    const { id } = match.params;
+
+    const tab = tabs.find(tab => tab.id === id);
+    return tab ? { tab } : {};
   }
 
   handleChange(key) {
@@ -80,29 +91,44 @@ class TabPage extends React.Component {
   }
 
   render() {
+    if (!this.state.tab) return <div>Loading</div>;
     try {
       const { classes } = this.props;
-      const tab = this.state;
+      const { tab } = this.state;
       const { title, url, category, due, note, preview } = tab;
       const categories = this.categories;
 
-      return !tab ? (
-        <div>Loading</div>
-      ) : (
+      return (
         <div className={classes.root}>
           <CardMedia className={classes.img} src={preview} component="img" />
           <div className={classes.inputs}>
-            <Input leadingIcon="bookmark" placeholder="Title" value={title} onChange={this.handleChange('title')} />
-            <Input leadingIcon="link" placeholder="URL" value={url} onChange={this.handleChange('url')} />
             <Input
+              elevation={8}
+              leadingIcon="bookmark"
+              placeholder="Title"
+              value={title}
+              onChange={this.handleChange('title')}
+            />
+            <Input elevation={8} leadingIcon="link" placeholder="URL" value={url} onChange={this.handleChange('url')} />
+            <Input
+              elevation={8}
               leadingIcon="category"
               placeholder="Category"
               autoSuggest={categories}
               value={category}
               onChange={this.handleChange('category')}
             />
-            <Input leadingIcon="access_time" placeholder="Due" date value={due} onChange={this.handleDateChange} />
             <Input
+              elevation={8}
+              leadingIcon="access_time"
+              trailingIcon="arrow_drop_down"
+              placeholder="Due"
+              type="date"
+              value={due}
+              onChange={this.handleDateChange}
+            />
+            <Input
+              elevation={8}
               leadingIcon="notes"
               placeholder="Note"
               multiline

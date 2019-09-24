@@ -2,10 +2,8 @@ import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from './auth.actions';
 import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './auth.actions';
 
 const initialState = {
-  isLoggedIn: false,
-  loginError: '',
   token: '',
-  isSignedUp: false
+  error: '',
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -18,14 +16,12 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload,
-        isLoggedIn: true,
         loginError: '',
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         token: '',
-        isLoggedIn: false,
         loginError: action.payload,
       };
 
@@ -36,7 +32,7 @@ export const authReducer = (state = initialState, action) => {
     case SIGNUP_SUCCESS:
       return {
         ...state,
-        isSignedUp: true
+        isSignedUp: true,
       };
     case SIGNUP_FAILURE:
       return {

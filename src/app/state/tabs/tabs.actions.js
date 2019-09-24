@@ -27,7 +27,8 @@ export const getTabsAction = () => dispatch => {
     type: GET_TABS_SUCCESS,
     payload: [
       {
-        title: 'Instacart',
+        id: '1',
+        title: 'Test',
         url: 'https://www.instacart.com/',
         category: 'Personal',
         due: new Date(),
