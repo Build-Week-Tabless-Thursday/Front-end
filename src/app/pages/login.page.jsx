@@ -1,11 +1,9 @@
 import React from 'react';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { FormGroup, Button } from '@material-ui/core';
-
 import { loginAction } from '../state/actions';
-import { Input } from '../components/reusable/input.component';
+import { UserForm } from '../components/user/form.component';
 
 @connect(
   state => ({
@@ -16,17 +14,6 @@ import { Input } from '../components/reusable/input.component';
 )
 @withRouter
 class LoginPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
   componentDidMount() {
     this.componentDidUpdate();
   }
@@ -36,37 +23,12 @@ class LoginPage extends React.Component {
     if (token) history.push('/');
   }
 
-  handleChange(key) {
-    return e => {
-      this.setState({
-        ...this.state,
-        [key]: e.target.value,
-      });
-    };
-  }
-
-  handleSubmit = async e => {
-    e.preventDefault();
-    this.props.loginAction(this.state);
+  handleSubmit = user => {
+    this.props.loginAction(user);
   };
 
   render() {
-    const { username, password } = this.state;
-
-    return (
-      <form onSubmit={this.handleSubmit} className="loginform">
-        <FormGroup>
-          <Input placeholder="Username" value={username} onChange={this.handleChange('username')} />
-          <Input placeholder="Password" value={password} onChange={this.handleChange('password')} />
-          <Button type="submit" color="primary" variant="contained">
-            Log In
-          </Button>
-          <NavLink to="/signup">
-            <Button>CREATE AN ACCOUNT</Button>
-          </NavLink>
-        </FormGroup>
-      </form>
-    );
+    return <UserForm button="LOGIN" link="/signup" linkLabel="CREATE AN ACCOUNT" onSubmit={this.handleSubmit} />;
   }
 }
 
