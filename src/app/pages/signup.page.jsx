@@ -23,7 +23,9 @@ class SignupPage extends React.Component {
 
 const mapStateToProps = state => {};
 
-export default connect(
+SignupPage = connect(
   mapStateToProps,
   { signupAction }
 )(SignupPage);
+
+export { SignupPage };
