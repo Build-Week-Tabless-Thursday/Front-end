@@ -14,6 +14,7 @@ import { LoginPage } from './pages/login.page';
 import { SharePage } from './pages/share.page';
 import { TabPage } from './pages/tab.page';
 import { SignupPage } from './pages/signup.page';
+import {NavDrawer} from './components/nav/drawer.component';
 
 import { store } from './state/store';
 
@@ -32,6 +33,7 @@ export class App extends React.Component {
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/share/:uuid" component={SharePage} />
                 <PrivateRoute exact path="/tab/:id" component={TabPage} />
+                <Route exact path="/drawer" component={NavDrawer} />
               </Switch>
             </Router>
           </Provider>

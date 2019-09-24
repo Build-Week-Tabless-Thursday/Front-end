@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
         <FormGroup>
           <TextField name="username" label="Username" value={this.state.username} onChange={this.handleChange} />
           <TextField name="password" label="Password" value={this.state.password} onChange={this.handleChange} />
-          <Button type="submit">Test</Button>
+          <Button type="submit">Log In</Button>
           <NavLink to='/signup'> CREATE AN ACCOUNT </NavLink>
         </FormGroup>
       </form>
