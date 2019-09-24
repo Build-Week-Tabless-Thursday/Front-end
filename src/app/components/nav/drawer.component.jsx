@@ -7,14 +7,8 @@ import { UserSwitcher } from '../user/switcher.component';
 
 
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import { Drawer, Button, List, Divider, ListItem, ListItemText } from '@material-ui/core';
+
 
 const useStyles = makeStyles({
   list: {
@@ -81,7 +75,13 @@ const NavDrawer = () => {
           </ListItem>
         ))}
       </List>
+      
+      {/* ABOVE HERE WILL BE SWITCH COMPONENT */}
+      
       <Divider />
+
+      {/* BELOW HERE WILL BE CATEGORIES */}
+
       <List>
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem button key={text}>
@@ -95,8 +95,8 @@ const NavDrawer = () => {
   return (
     <div>
       <Button onClick={toggleDrawer('left', true)}>Open Left</Button>
-      <Button onClick={toggleDrawer('right', true)}>Open Right</Button>
-      <Button onClick={toggleDrawer('top', true)}>Open Top</Button>
+      {/* <Button onClick={toggleDrawer('right', true)}>Open Right</Button> */}
+      {/* <Button onClick={toggleDrawer('top', true)}>Open Top</Button> */}
       <Button onClick={toggleDrawer('bottom', true)}>Open Bottom</Button>
       <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
         {sideList('left')}
