@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+export const GET_CATEGORIES_START = 'GET_CATEGORIES_START'
+export const GET_CATEGORIES_SUCCESS = 'GET_CATEGORIES_SUCCESS'
+export const GET_CATEGORIES_FAILURE = 'GET_CATEGORIES_FAILURE'
+
+
 export const GET_TABS_START = 'GET_TAB_START';
 export const GET_TABS_SUCCESS = 'GET_TAB_SUCCESS';
 export const GET_TABS_FAILURE = 'GET_TAB_FAILURE';
@@ -24,6 +29,7 @@ export const getTabsAction = () => dispatch => {
   //   });
 
   dispatch({
+    //we are going to post data here
     type: GET_TABS_SUCCESS,
     payload: [
       {
@@ -39,3 +45,21 @@ export const getTabsAction = () => dispatch => {
     ],
   });
 };
+
+export const getCategories = () => dispatch => {
+  dispatch({type: GET_CATEGORIES_START})
+
+  //get categories here with payload being probably res.data.categories depending on end point response data 
+  dispatch({type: GET_CATEGORIES_SUCCESS, payload:[
+    {
+      id: 0,
+      category: 'Lambda'
+    },
+    {
+      id: 2,
+      category: 'Fun'
+    }
+  ]
+})
+
+}
