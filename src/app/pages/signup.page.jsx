@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { signupAction } from '../state/login/login-signup.Action';
+import { signupAction } from '../state/actions';
 
 class SignupPage extends React.Component {
   constructor(props) {
@@ -23,7 +23,9 @@ class SignupPage extends React.Component {
 
 const mapStateToProps = state => {};
 
-export default connect(
+SignupPage = connect(
   mapStateToProps,
   { signupAction }
 )(SignupPage);
+
+export { SignupPage };

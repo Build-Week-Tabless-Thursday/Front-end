@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginAction } from '../state/login/login-signup.Action';
+import { loginAction } from '../state/actions';
 
-import { FormControl, FormHelperText, Input, InputLabel, FormGroup, Button, TextField } from '@material-ui/core';
+import { FormGroup, Button, TextField } from '@material-ui/core';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -30,7 +30,6 @@ class LoginPage extends React.Component {
   };
 
   render() {
-    console.log(this.handleSubmit);
     return (
       <form onSubmit={this.handleSubmit} className="loginform">
         <FormGroup>
@@ -52,7 +51,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
+LoginPage = connect(
   mapStateToProps,
   { loginAction }
 )(LoginPage);
+
+export { LoginPage };

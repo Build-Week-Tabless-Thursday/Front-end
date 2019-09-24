@@ -1,5 +1,5 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from '../../actions/index';
-import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../../actions/index';
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from './auth.actions';
+import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './auth.actions';
 
 const initialState = {
   isLoggedIn: false,
