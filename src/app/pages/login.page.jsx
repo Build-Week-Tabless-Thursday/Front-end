@@ -1,9 +1,11 @@
 import React from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {NavLink} from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
-import { FormGroup, Button, TextField } from '@material-ui/core';
+
+import { FormGroup, Button } from '@material-ui/core';
+
 import { loginAction } from '../state/actions';
+import { Input } from '../components/reusable/input.component';
 
 @connect(
   state => ({
@@ -16,21 +18,17 @@ import { loginAction } from '../state/actions';
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    const { loginAction } = props;
-
     this.state = {
       username: '',
       password: '',
     };
 
-    this.loginAction = loginAction;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    const { token, history } = this.props;
-    if (token) history.push('/');
+    this.componentDidUpdate();
   }
 
   componentDidUpdate() {
@@ -38,23 +36,34 @@ class LoginPage extends React.Component {
     if (token) history.push('/');
   }
 
-  handleChange = event => {
-    this.setState({ ...this.state, [event.target.name]: event.target.value });
-  };
+  handleChange(key) {
+    return e => {
+      this.setState({
+        ...this.state,
+        [key]: e.target.value,
+      });
+    };
+  }
 
   handleSubmit = async e => {
     e.preventDefault();
-    this.loginAction(this.state);
+    this.props.loginAction(this.state);
   };
 
   render() {
+    const { username, password } = this.state;
+
     return (
       <form onSubmit={this.handleSubmit} className="loginform">
         <FormGroup>
-          <TextField name="username" label="Username" value={this.state.username} onChange={this.handleChange} />
-          <TextField name="password" label="Password" value={this.state.password} onChange={this.handleChange} />
-          <Button type="submit">Log In</Button>
-          <NavLink to='/signup'> CREATE AN ACCOUNT </NavLink>
+          <Input placeholder="Username" value={username} onChange={this.handleChange('username')} />
+          <Input placeholder="Password" value={password} onChange={this.handleChange('password')} />
+          <Button type="submit" color="primary" variant="contained">
+            Log In
+          </Button>
+          <NavLink to="/signup">
+            <Button>CREATE AN ACCOUNT</Button>
+          </NavLink>
         </FormGroup>
       </form>
     );

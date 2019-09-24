@@ -15,7 +15,6 @@ export const loginAction = credentials => dispatch => {
   return axios
     .post('https://bw-tabless.herokuapp.com/login', credentials)
     .then(res => {
-      localStorage.setItem('token', res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
     })
     .catch(err => {
@@ -29,7 +28,7 @@ export const signupAction = credentials => dispatch => {
   axios
     .post('https://bw-tabless.herokuapp.com/register', credentials)
     .then(res => {
-      dispatch({ type: SIGNUP_SUCCESS });
+      dispatch({ type: SIGNUP_SUCCESS, payload: res.data.token });
     })
 
     .catch(err => {

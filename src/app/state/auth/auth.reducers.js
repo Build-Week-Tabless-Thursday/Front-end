@@ -2,7 +2,7 @@ import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from './auth.actions';
 import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './auth.actions';
 
 const initialState = {
-  token: '',
+  token: localStorage.getItem('token'),
   error: '',
 };
 
@@ -13,16 +13,18 @@ export const authReducer = (state = initialState, action) => {
         ...state,
       };
     case LOGIN_SUCCESS:
+      localStorage.setItem('token', action.payload);
       return {
         ...state,
         token: action.payload,
         loginError: '',
       };
     case LOGIN_FAILURE:
+      localStorage.setItem('token', '');
       return {
         ...state,
         token: '',
-        loginError: action.payload,
+        error: action.payload,
       };
 
     case SIGNUP_START:
@@ -30,13 +32,18 @@ export const authReducer = (state = initialState, action) => {
         ...state,
       };
     case SIGNUP_SUCCESS:
+      localStorage.setItem('token', action.payload);
       return {
         ...state,
-        isSignedUp: true,
+        token: action.payload,
+        error: '',
       };
     case SIGNUP_FAILURE:
+      localStorage.setItem('token', '');
       return {
         ...state,
+        token: '',
+        error: action.payload,
       };
     default:
       return state;
