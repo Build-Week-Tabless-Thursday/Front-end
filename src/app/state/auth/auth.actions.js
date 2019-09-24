@@ -18,14 +18,11 @@ export const loginAction = credentials => dispatch => {
       console.log('login res', res);
 
       localStorage.setItem('token', res.data.token);
-      dispatch({ type: LOGIN_START, payload: res.data.token });
-
-      return true;
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
     })
     .catch(err => {
       console.log('login err', err);
       dispatch({ type: LOGIN_FAILURE, payload: err.response });
-      return false;
     });
 };
 
