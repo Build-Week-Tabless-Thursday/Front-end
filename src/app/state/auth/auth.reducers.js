@@ -7,7 +7,7 @@ const initialState = {
   token: '',
 };
 
-export const loginReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_START:
       return {
@@ -16,22 +16,18 @@ export const loginReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        isLoggedIn: true,
         token: action.payload,
+        isLoggedIn: true,
+        loginError: '',
       };
     case LOGIN_FAILURE:
       return {
         ...state,
+        token: '',
         isLoggedIn: false,
         loginError: action.payload,
       };
-    default:
-      return state;
-  }
-};
 
-export const signupReducer = (state = initialState, action) => {
-  switch (action.type) {
     case SIGNUP_START:
       return {
         ...state,
@@ -44,7 +40,6 @@ export const signupReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-
     default:
       return state;
   }
