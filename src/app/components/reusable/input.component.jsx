@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   input: props => ({
     marginLeft: theme.spacing(0.5),
     flex: 1,
-    marginTop: props.multiline || props.autoSuggest ? 10 : 0,
+    marginTop: props.rows || props.autoSuggest ? 10 : 0,
   }),
   icon: {
     padding: 10,
@@ -62,30 +62,28 @@ const Suggestion = ({ label, query, isHighlighted }) => {
   );
 };
 
-const Input = props => {
-  const {
-    leadingIcon,
-    trailingIcon,
-    disabled,
-    placeholder,
-    multiline,
-    rows,
-    autoSuggest,
-    date,
-    value,
-    onChange,
-    onClick,
-  } = props;
-  const classes = useStyles({ autoSuggest, date, multiline });
-  const [suggestions, setSuggestions] = React.useState([]);
+const Input = ({
+  leadingIcon,
+  trailingIcon,
+  elevation,
+  disabled,
+  label,
+  placeholder,
+  rows,
+  autoSuggest,
+  type,
+  value,
+  onChange,
+  onClick,
+}) => {
+  const classes = useStyles({ autoSuggest, rows });
 
-  const onSuggestionsFetchRequested = ({ value }) => setSuggestions(getSuggestions(value));
-  const onSuggestionsClearRequested = () => setSuggestions([]);
+  const [suggestions, setSuggestions] = React.useState([]);
 
   const autosuggestProps = {
     suggestions,
-    onSuggestionsFetchRequested,
-    onSuggestionsClearRequested,
+    onSuggestionsFetchRequested: () => setSuggestions([]),
+    onSuggestionsClearRequested: ({ value }) => setSuggestions(getSuggestions(value)),
     getSuggestionValue: suggestion => suggestion.label,
   };
 
@@ -102,7 +100,7 @@ const Input = props => {
   };
 
   return (
-    <Paper className={classes.root}>
+    <Paper className={classes.root} elevation={elevation}>
       {leadingIcon && (
         <div className={classes.icon}>
           <Icon>{leadingIcon}</Icon>
@@ -134,7 +132,7 @@ const Input = props => {
           }}
         />
       )) ||
-        (date && (
+        (type === 'date' && (
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker
               autoOk
@@ -146,17 +144,21 @@ const Input = props => {
               placeholder={placeholder}
               value={value}
               onChange={onChange}
-              TextFieldComponent={inputProps => <InputBase className={classes.input} {...inputProps} />}
+              TextFieldComponent={inputProps => (
+                <InputBase className={classes.input} value={inputProps.value} onClick={inputProps.onClick} />
+              )}
             />
           </MuiPickersUtilsProvider>
         )) || (
           <InputBase
             className={classes.input}
             disabled={disabled}
+            label={label}
             placeholder={placeholder}
-            multiline={multiline}
+            multiline={rows > 0}
             rows={rows}
             rowsMax={rows}
+            type={type}
             value={value}
             onChange={onChange}
             onClick={onClick}
