@@ -1,14 +1,13 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
 // import { Icon, Button } from '@material-ui/core';
+import { getCategories } from '../../state/actions';
 
 import { UserSwitcher } from '../user/switcher.component';
 
-
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Button, List, Divider, ListItem, ListItemText } from '@material-ui/core';
-
 
 const useStyles = makeStyles({
   list: {
@@ -19,14 +18,21 @@ const useStyles = makeStyles({
   },
 });
 
-const NavDrawer = () => {
+const NavDrawer = props => {
+  console.log('props', props);
+
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
+    categories: [],
   });
+
+  useEffect(() => {
+    getCategories();
+  }, [getCategories]);
 
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -75,9 +81,9 @@ const NavDrawer = () => {
           </ListItem>
         ))}
       </List>
-      
+
       {/* ABOVE HERE WILL BE SWITCH COMPONENT */}
-      
+
       <Divider />
 
       {/* BELOW HERE WILL BE CATEGORIES */}
@@ -112,7 +118,17 @@ const NavDrawer = () => {
       </Drawer>
     </div>
   );
-}
+};
 
+const mapStateToProps = state => {
+  return {
+    categories: state.categories.categories,
+  };
+};
+
+connect(
+  mapStateToProps,
+  { getCategories }
+)(NavDrawer);
 
 export { NavDrawer };
