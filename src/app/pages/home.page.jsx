@@ -3,7 +3,7 @@ import React from 'react';
 import { SetTitle } from '../decorators/title.decorator';
 import { TabList } from '../components/tab/list.component';
 
-@SetTitle('Test')
+// @SetTitle('Test')
 class HomePage extends React.Component {
   render() {
     return (
