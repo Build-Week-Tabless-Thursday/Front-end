@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import { Icon, Button } from '@material-ui/core';
 
-import { UserSwitcher } from './user/switcher.component';
+import { UserSwitcher } from '../user/switcher.component';
 
 const useStyles = makeStyles({
   nav: {

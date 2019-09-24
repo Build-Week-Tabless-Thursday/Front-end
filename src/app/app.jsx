@@ -1,35 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import { Theme } from './config/theme.config';
+import { Theme } from './theme/config.theme';
 import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
 
-import { AppBar } from './components/bar.component';
+import { AppBar } from './components/nav/bar.component';
+import { PrivateRoute } from './components/reusable/private-route.component';
 
 import { HomePage } from './pages/home.page';
-import LoginPage from './pages/login.page';
+import { LoginPage } from './pages/login.page';
 import { SharePage } from './pages/share.page';
 import { TabPage } from './pages/tab.page';
-import { CategoryPage } from './pages/category.page';
-import SignupPage from './pages/signup.page';
+import { SignupPage } from './pages/signup.page';
 
-//redux
-import { createStore, applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-
-//reducer
-import { reducer } from './reducers/index';
-
-//private route
-import { PrivateRoute } from './utils/PrivateRoute';
-
-//google extension
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-//put store in here
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+import { store } from './state/store';
 
 export class App extends React.Component {
   render() {
@@ -46,8 +32,6 @@ export class App extends React.Component {
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/share/:uuid" component={SharePage} />
                 <PrivateRoute exact path="/tab/:id" component={TabPage} />
-                {/* might need id on the tab route */}
-                <PrivateRoute exact path="/category" component={CategoryPage} />
               </Switch>
             </Router>
           </Provider>
