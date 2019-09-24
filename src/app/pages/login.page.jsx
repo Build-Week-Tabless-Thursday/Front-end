@@ -6,18 +6,37 @@ import { FormGroup, Button, TextField } from '@material-ui/core';
 
 import { loginAction } from '../state/actions';
 
+@connect(
+  state => ({
+    token: state.auth.token,
+    error: state.auth.error,
+  }),
+  { loginAction }
+)
 @withRouter
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    if (this.props.isLoggedIn) this.props.history.push('/');
+    const { loginAction } = props;
+
     this.state = {
       username: '',
       password: '',
     };
 
+    this.loginAction = loginAction;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { token, history } = this.props;
+    if (token) history.push('/');
+  }
+
+  componentDidUpdate() {
+    const { token, history } = this.props;
+    if (token) history.push('/');
   }
 
   handleChange = event => {
@@ -26,7 +45,7 @@ class LoginPage extends React.Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const result = await this.props.loginAction(this.state);
+    this.loginAction(this.state);
   };
 
   render() {
@@ -41,14 +60,5 @@ class LoginPage extends React.Component {
     );
   }
 }
-
-LoginPage = connect(
-  state => ({
-    isLoggedIn: state.auth.isLoggedIn,
-    loginError: state.auth.loginError,
-    token: state.auth.token,
-  }),
-  { loginAction }
-)(LoginPage);
 
 export { LoginPage };
