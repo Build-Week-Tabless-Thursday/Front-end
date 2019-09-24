@@ -5,6 +5,7 @@ const initialState = {
   isLoggedIn: false,
   loginError: '',
   token: '',
+  isSignedUp: false
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -35,6 +36,7 @@ export const authReducer = (state = initialState, action) => {
     case SIGNUP_SUCCESS:
       return {
         ...state,
+        isSignedUp: true
       };
     case SIGNUP_FAILURE:
       return {

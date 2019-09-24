@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import {NavLink} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-
 import { FormGroup, Button, TextField } from '@material-ui/core';
-
 import { loginAction } from '../state/actions';
 
 @withRouter
@@ -35,7 +34,8 @@ class LoginPage extends React.Component {
         <FormGroup>
           <TextField name="username" label="Username" value={this.state.username} onChange={this.handleChange} />
           <TextField name="password" label="Password" value={this.state.password} onChange={this.handleChange} />
-          <Button type="submit">Test</Button>
+          <Button type="submit">Log In</Button>
+          <NavLink to='/signup'> CREATE AN ACCOUNT </NavLink>
         </FormGroup>
       </form>
     );
