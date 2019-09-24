@@ -17,9 +17,10 @@ class CategoryPage extends React.Component {
         <div>Loading...</div>
       ) : (
         <div>
-          {category().map(tab => {
+          <h1>CATEGORY PAGE</h1>
+          {/* {category().map(tab => {
             <h1>Hello Tab - {tab.id}</h1>;
-          })}
+          })} */}
         </div>
       );
     } catch (err) {
