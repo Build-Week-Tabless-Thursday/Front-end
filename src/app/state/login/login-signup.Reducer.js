@@ -1,4 +1,5 @@
 import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from '../../actions/index';
+import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../../actions/index';
 
 const initialState = {
   isLoggedIn: false,
@@ -24,6 +25,26 @@ export const loginReducer = (state = initialState, action) => {
         isLoggedIn: false,
         loginError: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const signupReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case SIGNUP_START:
+      return {
+        ...state,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+      };
+    case SIGNUP_FAILURE:
+      return {
+        ...state,
+      };
+
     default:
       return state;
   }

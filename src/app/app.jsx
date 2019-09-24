@@ -8,11 +8,11 @@ import { CssBaseline } from '@material-ui/core';
 import { AppBar } from './components/bar.component';
 
 import { HomePage } from './pages/home.page';
-import { LoginPage } from './pages/login.page';
+import LoginPage from './pages/login.page';
 import { SharePage } from './pages/share.page';
 import { TabPage } from './pages/tab.page';
 import { CategoryPage } from './pages/category.page';
-import { SignupPage } from './pages/signup.page';
+import SignupPage from './pages/signup.page';
 
 //redux
 import { createStore, applyMiddleware, compose } from 'redux';
