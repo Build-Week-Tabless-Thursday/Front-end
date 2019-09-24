@@ -1,9 +1,9 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from '../actions/index';
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from '../../actions/index';
 
 const initialState = {
   isLoggedIn: false,
   loginError: '',
-  userID: 0,
+  token: '',
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -16,7 +16,7 @@ export const loginReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: true,
-        userID: action.payload,
+        token: action.payload,
       };
     case LOGIN_FAILURE:
       return {
