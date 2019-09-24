@@ -15,33 +15,24 @@ export const loginAction = credentials => dispatch => {
   return axios
     .post('https://bw-tabless.herokuapp.com/login', credentials)
     .then(res => {
-      console.log('login res', res);
-
       localStorage.setItem('token', res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
     })
     .catch(err => {
-      console.log('login err', err);
       dispatch({ type: LOGIN_FAILURE, payload: err.response });
     });
 };
 
-export const signupAction = (credentials, history) => dispatch => {
+export const signupAction = credentials => dispatch => {
   dispatch({ type: SIGNUP_START });
 
   axios
     .post('https://bw-tabless.herokuapp.com/register', credentials)
     .then(res => {
-      console.log('signup', res);
-
       dispatch({ type: SIGNUP_SUCCESS });
-
-      history.push('/login');
     })
 
     .catch(err => {
-      console.log('signup error', err);
-
       dispatch({ type: SIGNUP_FAILURE, payload: err.response });
     });
 };
