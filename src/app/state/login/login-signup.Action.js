@@ -19,7 +19,7 @@ export const loginAction = credentials => dispatch => {
 
       localStorage.setItem('token', res.data.token);
 
-      dispatch({ type: LOGIN_START, payload: res.data.token });
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
 
       //   history.push('/');
       return true;

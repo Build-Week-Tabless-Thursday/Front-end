@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loginAction } from '../state/login/login-signup.Action';
+import {NavLink} from 'react-router-dom';
 
 import { FormControl, FormHelperText, Input, InputLabel, FormGroup, Button, TextField } from '@material-ui/core';
 
@@ -12,8 +13,8 @@ class LoginPage extends React.Component {
       password: '',
     };
 
-    // this.handleChange = this.handleChange.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange = event => {
@@ -37,6 +38,7 @@ class LoginPage extends React.Component {
           <TextField name="username" label="Username" value={this.state.username} onChange={this.handleChange} />
           <TextField name="password" label="Password" value={this.state.password} onChange={this.handleChange} />
           <Button type="submit">Test</Button>
+          <NavLink to='/signup'> CREATE AN ACCOUNT </NavLink>
         </FormGroup>
       </form>
     );

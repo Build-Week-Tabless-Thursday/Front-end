@@ -5,6 +5,7 @@ const initialState = {
   isLoggedIn: false,
   loginError: '',
   token: '',
+  isSignedUp: false
 };
 
 export const loginReducer = (state = initialState, action) => {
@@ -39,6 +40,7 @@ export const signupReducer = (state = initialState, action) => {
     case SIGNUP_SUCCESS:
       return {
         ...state,
+        isSignedUp: true
       };
     case SIGNUP_FAILURE:
       return {
