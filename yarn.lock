@@ -3877,6 +3877,11 @@ eslint-plugin-jsx-a11y@6.2.3:
     has "^1.0.3"
     jsx-ast-utils "^2.2.1"
 
+eslint-plugin-legacy-decorators@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-legacy-decorators/-/eslint-plugin-legacy-decorators-1.0.0.tgz#5bdecd4778478070105c992e5fa455601c95f8e4"
+  integrity sha512-3igdjcoXF5mXVLqdxKyVK1MxoEYGU+mE4DLhFiw5tyBSKDlV0oXo0AfTl4z34Ss010Av0n99gGsJKDAUzU/2hw==
+
 eslint-plugin-react-hooks@^1.6.1:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.7.0.tgz#6210b6d5a37205f0b92858f895a4e827020a7d04"
