@@ -1,5 +1,5 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from '../../actions/index';
-import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../../actions/index';
+import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from './auth.actions';
+import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './auth.actions';
 
 const initialState = {
   isLoggedIn: false,
@@ -8,7 +8,7 @@ const initialState = {
   isSignedUp: false
 };
 
-export const loginReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_START:
       return {
@@ -17,22 +17,18 @@ export const loginReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        isLoggedIn: true,
         token: action.payload,
+        isLoggedIn: true,
+        loginError: '',
       };
     case LOGIN_FAILURE:
       return {
         ...state,
+        token: '',
         isLoggedIn: false,
         loginError: action.payload,
       };
-    default:
-      return state;
-  }
-};
 
-export const signupReducer = (state = initialState, action) => {
-  switch (action.type) {
     case SIGNUP_START:
       return {
         ...state,
@@ -46,7 +42,6 @@ export const signupReducer = (state = initialState, action) => {
       return {
         ...state,
       };
-
     default:
       return state;
   }

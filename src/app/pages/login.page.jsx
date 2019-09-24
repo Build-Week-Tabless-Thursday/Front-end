@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loginAction } from '../state/login/login-signup.Action';
 import {NavLink} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { FormGroup, Button, TextField } from '@material-ui/core';
+import { loginAction } from '../state/actions';
 
-import { FormControl, FormHelperText, Input, InputLabel, FormGroup, Button, TextField } from '@material-ui/core';
-
+@withRouter
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
+    if (this.props.isLoggedIn) this.props.history.push('/');
     this.state = {
       username: '',
       password: '',
@@ -24,14 +26,9 @@ class LoginPage extends React.Component {
   handleSubmit = async e => {
     e.preventDefault();
     const result = await this.props.loginAction(this.state);
-    if (result) {
-      this.props.history.push('/');
-    } else {
-    }
   };
 
   render() {
-    console.log(this.handleSubmit);
     return (
       <form onSubmit={this.handleSubmit} className="loginform">
         <FormGroup>
@@ -45,16 +42,13 @@ class LoginPage extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  console.log('state', state);
-  return {
-    isLoggedIn: state.isLoggedIn,
-    loginError: state.loginError,
-    token: state.token,
-  };
-};
-
-export default connect(
-  mapStateToProps,
+LoginPage = connect(
+  state => ({
+    isLoggedIn: state.auth.isLoggedIn,
+    loginError: state.auth.loginError,
+    token: state.auth.token,
+  }),
   { loginAction }
 )(LoginPage);
+
+export { LoginPage };

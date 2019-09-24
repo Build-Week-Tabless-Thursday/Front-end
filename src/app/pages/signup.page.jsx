@@ -4,6 +4,7 @@ import {NavLink} from 'react-router-dom';
 import { signupAction } from '../state/login/login-signup.Action';
 import { FormControl, FormHelperText, Input, InputLabel, FormGroup, Button, TextField } from '@material-ui/core';
 
+import { signupAction } from '../state/actions';
 
 class SignupPage extends React.Component {
   constructor(props) {
@@ -43,7 +44,9 @@ const mapStateToProps = state => {
   
 };
 
-export default connect(
+SignupPage = connect(
   mapStateToProps,
   { signupAction }
 )(SignupPage);
+
+export { SignupPage };

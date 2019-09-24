@@ -1,4 +1,4 @@
-export const circleInsetBar = `polygon(0 0,
+const circleInsetBar = `polygon(0 0,
   calc(50% - 38px) 0,
   calc(50% - 37.487665px) 0.628287px,
   calc(50% - 36.975331px) 1.256382px,
@@ -183,3 +183,5 @@ export const circleInsetBar = `polygon(0 0,
   100% 0,
   100% 100%,
   0 100%);`;
+
+export { circleInsetBar };
