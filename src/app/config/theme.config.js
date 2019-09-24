@@ -1,19 +1,29 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { red, indigo, pink } from '@material-ui/core/colors';
+import { red, blue, blueGrey } from '@material-ui/core/colors';
 
 const Theme = createMuiTheme({
   palette: {
     primary: {
-      main: indigo['500'],
+      main: blue['700'],
+      accent: blue['900'],
     },
     secondary: {
-      main: pink['500'],
+      main: blueGrey['700'],
     },
     error: {
       main: red['A400'],
     },
     background: {
       default: 'white',
+    },
+  },
+  overrides: {
+    MuiSelect: {
+      select: {
+        '&:focus': {
+          backgroundColor: '#00000000',
+        },
+      },
     },
   },
 });
