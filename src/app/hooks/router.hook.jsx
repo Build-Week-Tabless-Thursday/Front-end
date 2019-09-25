@@ -1,16 +1,28 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { useContext } from 'react';
+import { __RouterContext as RouterContext } from 'react-router';
 
-const RouterContext = React.createContext(null);
-
-const HookedBrowserRouter = ({ children }) => (
-  <Router>
-    <Route>{routeProps => <RouterContext.Provider value={routeProps}>{children}</RouterContext.Provider>}</Route>
-  </Router>
-);
-
-function useRouter() {
-  return React.useContext(RouterContext);
+export function useRouter() {
+  return useContext(RouterContext);
 }
 
-export { HookedBrowserRouter, useRouter };
+export function useParams() {
+  const { match } = useRouter();
+  return match.params;
+}
+
+export function useLocation() {
+  const { location, history } = useRouter();
+
+  function navigate(to, { replace = false } = {}) {
+    if (replace) {
+      history.replace(to);
+    } else {
+      history.push(to);
+    }
+  }
+
+  return {
+    location,
+    navigate,
+  };
+}
