@@ -20,7 +20,7 @@ export const authReducer = (state = initialState, action) => {
         loginError: '',
       };
     case LOGIN_FAILURE:
-      localStorage.setItem('token', '');
+      localStorage.removeItem('token');
       return {
         ...state,
         token: '',
@@ -39,10 +39,45 @@ export const authReducer = (state = initialState, action) => {
         error: '',
       };
     case SIGNUP_FAILURE:
-      localStorage.setItem('token', '');
+      localStorage.removeItem('token');
       return {
         ...state,
         token: '',
+        error: action.payload,
+      };
+
+    case SIGNOUT_START:
+      return {
+        ...state,
+      };
+    case SIGNOUT_SUCCESS:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: action.payload,
+        error: '',
+      };
+    case SIGNOUT_FAILURE:
+      return {
+        ...state,
+        token: '',
+        error: action.payload,
+      };
+
+    case DELETE_ACCOUNT_START:
+      return {
+        ...state,
+      };
+    case DELETE_ACCOUNT_SUCCESS:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: '',
+        error: '',
+      };
+    case DELETE_ACCOUNT_FAILURE:
+      return {
+        ...state,
         error: action.payload,
       };
     default:

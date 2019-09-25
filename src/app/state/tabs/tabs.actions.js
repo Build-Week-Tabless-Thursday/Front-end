@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { axiosWithAuth } from '../../utils/AxiosWithAuth';
 
 //GET TABS
@@ -22,7 +21,7 @@ export const DELETE_TAB_START = 'DELETE_TAB_START';
 export const DELETE_TAB_SUCCESS = 'DELETE_TAB_SUCESS';
 export const DELETE_TAB_FAILURE = 'DELETE_TAB_SUCCESS';
 
-//DELETE INDIVIDUAL TAB
+//EDIT INDIVIDUAL TAB
 export const EDIT_TAB_START = 'EDIT_TAB_START';
 export const EDIT_TAB_SUCCESS = 'EDIT_TAB_SUCCESS';
 export const EDIT_TAB_FAILURE = 'EDIT_TAB_FAILURE';
