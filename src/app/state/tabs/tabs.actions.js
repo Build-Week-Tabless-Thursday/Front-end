@@ -35,7 +35,7 @@ export const SET_CATEGORY_FAILURE = 'SET_CATEGORY_FAILURE';
 export const getTabs = () => dispatch => {
   dispatch({ type: GET_TABS_START });
 
-  axiosWithAuth
+  axiosWithAuth()
     .get('https://bw-tabless.herokuapp.com/tabs')
     .then(res => {
       console.log(res);
@@ -47,7 +47,7 @@ export const getTabs = () => dispatch => {
       dispatch({ type: SET_CATEGORIES_START });
       const categories = res.data
         .map(tab => tab.category)
-        .filter((category, index, categories) => categories.indexOf(category) !== index);
+        .filter((category, index, categories) => categories.indexOf(category) === index && category);
 
       dispatch({
         type: SET_CATEGORIES_SUCCESS,
@@ -73,7 +73,7 @@ export const addTab = tab => (dispatch, getState) => {
   const tabs = getState().tabs.list;
 
   dispatch({ type: ADD_TAB_LOCAL, payload: [...tabs, tabs] });
-  axiosWithAuth
+  axiosWithAuth()
     .post('https://bw-tabless.herokuapp.com/tabs', tab)
     .then(res => {
       console.log('addTab', res);
@@ -86,10 +86,12 @@ export const addTab = tab => (dispatch, getState) => {
 
 //GET TAB
 export const getTab = id => () => {
-  return axiosWithAuth.get(`https://bw-tabless.herokuapp.com/tab/${id}`).then(res => {
-    console.log('get tab', res);
-    return res.data;
-  });
+  return axiosWithAuth()
+    .get(`https://bw-tabless.herokuapp.com/tab/${id}`)
+    .then(res => {
+      console.log('get tab', res);
+      return res.data;
+    });
 };
 
 //EDIT TAB
@@ -111,7 +113,7 @@ export const deleteTab = id => (dispatch, getState) => {
   dispatch({ type: DELETE_TAB_START });
   const tabs = getState().tabs.list;
 
-  axiosWithAuth
+  axiosWithAuth()
     .delete(`https://bw-tabless.herokuapp.com/tab/${id}`)
     .then(res => {
       console.log('edit tab', res);

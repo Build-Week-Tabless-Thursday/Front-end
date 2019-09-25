@@ -1,10 +1,11 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Typography, withStyles } from '@material-ui/core';
-import { NoteOutlined } from '@material-ui/icons';
+import { Fab, Typography, withStyles } from '@material-ui/core';
+import { Add, NoteOutlined } from '@material-ui/icons';
 
-import { getTabsAction } from '../state/actions';
+import { getTabs } from '../state/actions';
 import { TabList } from '../components/tab/list.component';
 
 const styles = theme => ({
@@ -31,6 +32,17 @@ const styles = theme => ({
     fontSize: 300,
     color: theme.palette.grey[400],
   },
+  fabButton: {
+    position: 'fixed',
+    zIndex: 1,
+    bottom: 20,
+    [theme.breakpoints.up('sm')]: {
+      bottom: 36,
+    },
+    left: 0,
+    right: 0,
+    margin: '0 auto',
+  },
 });
 
 @connect(
@@ -38,8 +50,9 @@ const styles = theme => ({
     tabs: state.tabs.list,
     category: state.tabs.category,
   }),
-  { getTabsAction }
+  { getTabs }
 )
+@withRouter
 @withStyles(styles)
 class HomePage extends React.Component {
   constructor(props) {
@@ -48,14 +61,15 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    const { getTabsAction } = this.props;
-    getTabsAction();
+    const { getTabs } = this.props;
+    getTabs();
   }
 
   render() {
     const category = '';
-    const { tabs, classes } = this.props;
+    const { classes, history, tabs } = this.props;
     const filteredTabs = category ? tabs.filter(tab => tab.category === category) : tabs;
+    console.log(this.props);
 
     return (
       <main className={classes.root}>
@@ -69,6 +83,10 @@ class HomePage extends React.Component {
           </div>
         )}
         {filteredTabs.length !== 0 && <TabList tabs={filteredTabs} />}
+
+        <Fab color="secondary" className={classes.fabButton} onClick={() => history.push('/create')}>
+          <Add />
+        </Fab>
       </main>
     );
   }
