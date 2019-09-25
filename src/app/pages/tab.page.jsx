@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/styles';
 import { AppBar, CardMedia, Icon, IconButton, Toolbar } from '@material-ui/core';
-import Img from 'react-image';
 
 import { getTab, addTab } from '../state/actions';
 import { Input } from '../components/reusable/input.component';
