@@ -18,6 +18,7 @@ import { NavDrawer } from './components/nav/drawer.component';
 import { NavBar } from './components/nav/bar.component';
 
 import { store } from './state/store';
+import { TabSearch } from './components/tab/search.component';
 
 export class App extends React.Component {
   render() {
@@ -38,6 +39,7 @@ export class App extends React.Component {
                 {/* TESTING */}
                 <Route exact path="/drawer" component={NavDrawer} />
                 <Route exact path="/navbar" component={NavBar} />
+                <Route exact path="/searchbar" component={TabSearch} />
               </Switch>
             </Router>
           </Provider>

@@ -18,6 +18,7 @@ import {
 import { Menu, Add, Search, Share } from '@material-ui/icons';
 import { NavDrawer } from './drawer.component';
 import { circleInsetBar } from '../../theme/var.theme';
+import { TabSearch } from '../tab/search.component';
 
 const useStyles = makeStyles(theme => ({
   text: {
