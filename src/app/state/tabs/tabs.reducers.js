@@ -1,4 +1,4 @@
-import { GET_TABS_START, GET_TABS_SUCCESS, GET_TABS_FAILURE } from './tabs.actions';
+import { GET_TABS_START, GET_TABS_SUCCESS, GET_TABS_FAILURE, DELETE_TAB } from './tabs.actions';
 import { GET_CATEGORIES_START, GET_CATEGORIES_SUCCESS, GET_CATEGORIES_FAILURE } from './tabs.actions';
 
 const initialState = {
@@ -44,6 +44,15 @@ export const categoriesReducer = (state = initialState, action) => {
         ...state,
       };
 
+    default:
+      return state;
+  }
+};
+
+export const individualTab = (state = initialState, action) => {
+  switch (action.type) {
+    case DELETE_TAB:
+      return state.filer(({ id }) => id !== action.payload);
     default:
       return state;
   }

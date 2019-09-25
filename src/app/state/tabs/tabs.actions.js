@@ -9,6 +9,8 @@ export const GET_TABS_START = 'GET_TAB_START';
 export const GET_TABS_SUCCESS = 'GET_TAB_SUCCESS';
 export const GET_TABS_FAILURE = 'GET_TAB_FAILURE';
 
+export const DELETE_TAB = 'DELETE_TAB';
+
 //ALL USER TABS
 
 export const getTabsAction = () => dispatch => {
@@ -32,7 +34,6 @@ export const getTabsAction = () => dispatch => {
     .then(res => {
       console.log(res);
       dispatch({
-        //we are going to post data here
         type: GET_TABS_SUCCESS,
         payload: tabExample,
       });
@@ -42,7 +43,7 @@ export const getTabsAction = () => dispatch => {
     .map(tab => tab.category)
     .filter((category, index, categories) => categories.indexOf(category) !== index);
 
-  //PAYLOAD MIGHT NOT BE CORRECT
+  //PAYLOAD MIGHT NOT BE CORRECT BELOW
 
   dispatch({
     type: GET_TABS_SUCCESS,
@@ -85,40 +86,7 @@ export const deleteTabs = id => dispatch => {
     //dispatch a delete tab
 
     .then(res => {
+      dispatch({ type: DELETE_TAB, payload: res.data });
       console.log('edit tab', res);
     });
 };
-
-// return axios
-//   .post('https://bw-tabless.herokuapp.com/login', credentials)
-//   .then(res => {
-//     console.log('login res', res);
-
-//     localStorage.setItem('token', res.data.token);
-//     dispatch({ type: GET_TAB_SUCCESS, payload: res.data.token });
-
-//     return true;
-//   })
-//   .catch(err => {
-//     console.log('login err', err);
-//     dispatch({ type: GET_TAB_FAILURE, payload: err.response });
-//     return false;
-//   });
-
-//get categories here with payload being probably res.data.categories depending on end point response data
-
-// export const getCategories = () => (dispatch, getState) => {
-//   dispatch({ type: GET_CATEGORIES_START });
-
-//   // axiosWithAuth
-//   //   .get('https://bw-tabless.herokuapp.com/tabs')
-//   //   .then(res => {
-//   //     console.log(res);
-
-//   //   })
-
-//   // .catch(err => {
-//   //   console.log('err', err);
-//   //   dispatch({ GET_CATEGORIES_FAILURE });
-//   // });
-// };
