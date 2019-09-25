@@ -143,7 +143,7 @@ const Input = ({
               disabled={disabled}
               placeholder={placeholder}
               value={value}
-              onChange={onChange}
+              onChange={value => onChange({ target: { value } })}
               TextFieldComponent={inputProps => (
                 <InputBase className={classes.input} value={inputProps.value} onClick={inputProps.onClick} />
               )}

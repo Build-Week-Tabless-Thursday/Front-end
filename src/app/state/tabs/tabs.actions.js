@@ -32,41 +32,8 @@ export const SET_CATEGORY_SUCCESS = 'SET_CATEGORY_SUCCESS';
 export const SET_CATEGORY_FAILURE = 'SET_CATEGORY_FAILURE';
 
 //GET TABS
-export const getTabsAction = () => dispatch => {
+export const getTabs = () => dispatch => {
   dispatch({ type: GET_TABS_START });
-
-  const tabExample = [
-    {
-      id: '1',
-      title: 'Personal',
-      url: 'https://www.instacart.com/',
-      category: 'Personal',
-      due: new Date(),
-      note: '',
-      preview:
-        'https://images.sftcdn.net/images/t_app-cover-l,f_auto/p/befbcde0-9b36-11e6-95b9-00163ed833e7/260663710/the-test-fun-for-friends-screenshot.jpg',
-    },
-    {
-      id: '2',
-      title: 'Lambda',
-      url: 'https://www.instacart.com/',
-      category: 'Lambda',
-      due: new Date(),
-      note: '',
-      preview:
-        'https://images.sftcdn.net/images/t_app-cover-l,f_auto/p/befbcde0-9b36-11e6-95b9-00163ed833e7/260663710/the-test-fun-for-friends-screenshot.jpg',
-    },
-    {
-      id: '3',
-      title: 'Work',
-      url: 'https://www.instacart.com/',
-      category: 'Work',
-      due: new Date(),
-      note: '',
-      preview:
-        'https://images.sftcdn.net/images/t_app-cover-l,f_auto/p/befbcde0-9b36-11e6-95b9-00163ed833e7/260663710/the-test-fun-for-friends-screenshot.jpg',
-    },
-  ];
 
   axiosWithAuth()
     .get('https://bw-tabless.herokuapp.com/tabs')
@@ -74,13 +41,13 @@ export const getTabsAction = () => dispatch => {
       console.log(res);
       dispatch({
         type: GET_TABS_SUCCESS,
-        payload: tabExample,
+        payload: res.data,
       });
 
       dispatch({ type: SET_CATEGORIES_START });
-      const categories = tabExample
+      const categories = res.data
         .map(tab => tab.category)
-        .filter((category, index, categories) => categories.indexOf(category) !== index);
+        .filter((category, index, categories) => categories.indexOf(category) === index && category);
 
       dispatch({
         type: SET_CATEGORIES_SUCCESS,
@@ -102,23 +69,23 @@ export const getTabsAction = () => dispatch => {
 
 //ADD TAB
 export const addTab = tab => (dispatch, getState) => {
-  dispatch({ ADD_TAB_START });
+  dispatch({ type: ADD_TAB_START });
   const tabs = getState().tabs.list;
 
-  dispatch({ ADD_TAB_LOCAL, payload: [...tabs, tabs] });
+  dispatch({ type: ADD_TAB_LOCAL, payload: [...tabs, tabs] });
   axiosWithAuth()
     .post('https://bw-tabless.herokuapp.com/tabs', tab)
     .then(res => {
       console.log('addTab', res);
-      dispatch({ ADD_TAB_SUCCESS, payload: res.data });
+      dispatch({ type: ADD_TAB_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({ ADD_TAB_FAILURE, payload: err.response });
+      dispatch({ type: ADD_TAB_FAILURE, payload: err.response });
     });
 };
 
 //GET TAB
-export const getTab = id => dispatch => {
+export const getTab = id => () => {
   return axiosWithAuth()
     .get(`https://bw-tabless.herokuapp.com/tab/${id}`)
     .then(res => {
@@ -129,21 +96,21 @@ export const getTab = id => dispatch => {
 
 //EDIT TAB
 export const editTabs = (newtab, id) => dispatch => {
-  dispatch({ EDIT_TAB_START });
+  dispatch({ type: EDIT_TAB_START });
   axiosWithAuth()
     .put(`https://bw-tabless.herokuapp.com/tab/${id}`, newtab)
     .then(res => {
       console.log('edit tab', res);
-      dispatch({ EDIT_TAB_SUCCESS, payload: res.data });
+      dispatch({ type: EDIT_TAB_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({ EDIT_TAB_FAILURE, payload: err.response });
+      dispatch({ type: EDIT_TAB_FAILURE, payload: err.response });
     });
 };
 
 //DELETE TAB
-export const deleteTabs = id => (dispatch, getState) => {
-  dispatch({ DELETE_TAB_START });
+export const deleteTab = id => (dispatch, getState) => {
+  dispatch({ type: DELETE_TAB_START });
   const tabs = getState().tabs.list;
 
   axiosWithAuth()
@@ -159,13 +126,13 @@ export const deleteTabs = id => (dispatch, getState) => {
 
 //SET CATEGORY
 export const setCategory = category => (dispatch, getState) => {
-  dispatch({ SET_CATEGORY_START });
+  dispatch({ type: SET_CATEGORY_START });
   const categories = getState().tabs.category;
 
   try {
     if (!categories.find(category)) throw new Error('Category is does not exist');
-    dispatch({ SET_CATEGORY_SUCCESS, payload: category });
+    dispatch({ type: SET_CATEGORY_SUCCESS, payload: category });
   } catch (err) {
-    dispatch({ SET_CATEGORY_FAILURE, payload: err.response });
+    dispatch({ type: SET_CATEGORY_FAILURE, payload: err.response });
   }
 };
