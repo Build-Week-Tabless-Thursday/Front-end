@@ -82,8 +82,8 @@ const Input = ({
 
   const autosuggestProps = {
     suggestions,
-    onSuggestionsFetchRequested: () => setSuggestions([]),
-    onSuggestionsClearRequested: ({ value }) => setSuggestions(getSuggestions(value)),
+    onSuggestionsFetchRequested: ({ value }) => setSuggestions(getSuggestions(value)),
+    onSuggestionsClearRequested: () => setSuggestions([]),
     getSuggestionValue: suggestion => suggestion.label,
   };
 
