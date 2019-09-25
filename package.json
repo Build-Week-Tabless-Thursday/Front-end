@@ -16,6 +16,7 @@
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.19.0",
     "date-fns": "^2.2.1",
+    "node-vibrant": "^3.1.4",
     "react": "16.9.0",
     "react-anime": "^2.2.0",
     "react-autosuggest": "^9.4.3",
