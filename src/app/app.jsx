@@ -6,7 +6,7 @@ import { Theme } from './theme/config.theme';
 import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
 
-import { AppBar } from './components/nav/bar.component';
+// import { AppBar } from './components/nav/bar.component';
 import { PrivateRoute } from './components/reusable/private-route.component';
 
 import { HomePage } from './pages/home.page';
@@ -14,9 +14,11 @@ import { LoginPage } from './pages/login.page';
 import { SharePage } from './pages/share.page';
 import { TabPage } from './pages/tab.page';
 import { SignupPage } from './pages/signup.page';
-import {NavDrawer} from './components/nav/drawer.component';
+import { NavDrawer } from './components/nav/drawer.component';
+import { NavBar } from './components/nav/bar.component';
 
 import { store } from './state/store';
+import { TabSearch } from './components/tab/search.component';
 
 export class App extends React.Component {
   render() {
@@ -26,14 +28,18 @@ export class App extends React.Component {
           <CssBaseline />
           <Provider store={store}>
             <Router>
-              <AppBar />
+              {/* <AppBar /> */}
               <Switch>
                 <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/signup" component={SignupPage} />
                 <PrivateRoute exact path="/" component={HomePage} />
                 <PrivateRoute exact path="/share/:uuid" component={SharePage} />
                 <PrivateRoute exact path="/tab/:id" component={TabPage} />
+
+                {/* TESTING */}
                 <Route exact path="/drawer" component={NavDrawer} />
+                <Route exact path="/navbar" component={NavBar} />
+                <Route exact path="/searchbar" component={TabSearch} />
               </Switch>
             </Router>
           </Provider>
