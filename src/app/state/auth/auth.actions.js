@@ -40,7 +40,7 @@ export const signupAction = credentials => dispatch => {
 export const signoutAction = () => dispatch => {
   dispatch({ type: SIGNUP_START });
   axios
-    .post('https://bw-tabless.herokuapp.com/register', credentials)
+    .post('https://bw-tabless.herokuapp.com/erase')
     .then(res => {
       dispatch({ type: SIGNUP_SUCCESS, payload: res.data.token });
     })

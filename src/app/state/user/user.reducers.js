@@ -6,7 +6,7 @@ const initialState = {
   error: '',
 };
 
-export const getUserReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_USER_START:
       return {
