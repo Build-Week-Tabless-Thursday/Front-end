@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+import { axiosWithAuth } from '../../utils/AxiosWithAuth';
 
 // import { Icon, Button } from '@material-ui/core';
 import { getCategories } from '../../state/actions';
@@ -8,6 +10,7 @@ import { UserSwitcher } from '../user/switcher.component';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Button, List, Divider, ListItem, ListItemText } from '@material-ui/core';
+import { cs } from 'date-fns/esm/locale';
 
 const useStyles = makeStyles({
   list: {
@@ -18,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-const NavDrawer = props => {
+let NavDrawer = props => {
   console.log('props', props);
 
   const classes = useStyles();
@@ -32,7 +35,7 @@ const NavDrawer = props => {
 
   useEffect(() => {
     getCategories();
-  }, [getCategories]);
+  }, []);
 
   const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -126,7 +129,7 @@ const mapStateToProps = state => {
   };
 };
 
-connect(
+NavDrawer = connect(
   mapStateToProps,
   { getCategories }
 )(NavDrawer);
