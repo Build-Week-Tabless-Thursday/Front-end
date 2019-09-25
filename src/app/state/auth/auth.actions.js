@@ -9,13 +9,11 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
 export const loginAction = credentials => dispatch => {
-  console.log('i was here');
   dispatch({ type: LOGIN_START });
 
   return axios
     .post('https://bw-tabless.herokuapp.com/login', credentials)
     .then(res => {
-      localStorage.setItem('token', res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
     })
     .catch(err => {
@@ -29,7 +27,7 @@ export const signupAction = credentials => dispatch => {
   axios
     .post('https://bw-tabless.herokuapp.com/register', credentials)
     .then(res => {
-      dispatch({ type: SIGNUP_SUCCESS });
+      dispatch({ type: SIGNUP_SUCCESS, payload: res.data.token });
     })
 
     .catch(err => {

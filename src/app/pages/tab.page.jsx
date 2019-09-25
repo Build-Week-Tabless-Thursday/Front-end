@@ -48,6 +48,7 @@ const styles = theme => ({
 class TabPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {};
 
     const { tabs, getTabsAction } = props;
     if (tabs.length === 0) getTabsAction();
@@ -56,7 +57,9 @@ class TabPage extends React.Component {
     this.handleDateChange = this.handleDateChange.bind(this);
   }
 
-  static getDerivedStateFromProps(props) {
+  static getDerivedStateFromProps(props, state) {
+    console.log(state);
+    if (Object.keys(state).length) return state;
     const { tabs, match } = props;
     const { id } = match.params;
 
@@ -64,11 +67,13 @@ class TabPage extends React.Component {
     return tab ? { tab } : {};
   }
 
-  handleChange(key) {
+  handleChange(key, state) {
     return e => {
       this.setState({
-        ...this.state,
-        [key]: e.target.value,
+        tab: {
+          ...this.state.tab,
+          [key]: e.target.value,
+        },
       });
     };
   }
