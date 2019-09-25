@@ -1,8 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { withStyles } from '@material-ui/core';
+
 import { signupAction } from '../state/actions';
 import { UserForm } from '../components/user/form.component';
+
+const styles = theme => ({
+  root: {
+    height: '100vh',
+    backgroundColor: theme.palette.primary['background'],
+
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 @connect(
   state => ({
@@ -11,6 +24,7 @@ import { UserForm } from '../components/user/form.component';
   }),
   { signupAction }
 )
+@withStyles(styles)
 class SignupPage extends React.Component {
   componentDidMount() {
     this.componentDidUpdate();
@@ -26,7 +40,12 @@ class SignupPage extends React.Component {
   };
 
   render() {
-    return <UserForm email button="CREATE ACCOUNT" link="/" linkLabel="Already a user?" onSubmit={this.handleSubmit} />;
+    const { classes } = this.props;
+    return (
+      <div className={classes.root}>
+        <UserForm email button="CREATE ACCOUNT" link="/" linkLabel="Already a user?" onSubmit={this.handleSubmit} />
+      </div>
+    );
   }
 }
 
