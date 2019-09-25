@@ -1,4 +1,4 @@
-import { axiosWithAuth } from '../../utils/AxiosWithAuth';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 //getting user profile (get)
 export const GET_USER_START = 'GET_USER_START';
