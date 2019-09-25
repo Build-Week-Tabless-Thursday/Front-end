@@ -55,9 +55,9 @@ const TabSearch = ({ button, buttonColor, email, link, linkLabel, onSubmit }) =>
           <Input
             elevation={8}
             leadingIcon="search"
-            placeholder="Username"
+            placeholder="Search"
             value={user.username}
-            onChange={handleChange('username')}
+            onChange={handleChange('search')}
           />
         </FormGroup>
       </form>
