@@ -15,7 +15,7 @@ import { SharePage } from './pages/share.page';
 import { TabPage } from './pages/tab.page';
 import { SignupPage } from './pages/signup.page';
 import { NavDrawer } from './components/nav/drawer.component';
-import { AppBar } from './components/nav/bar.component';
+import { NavBar } from './components/nav/bar.component';
 
 import { store } from './state/store';
 
@@ -37,7 +37,7 @@ export class App extends React.Component {
 
                 {/* TESTING */}
                 <Route exact path="/drawer" component={NavDrawer} />
-                <Route exact path="/navbar" component={AppBar} />
+                <Route exact path="/navbar" component={NavBar} />
               </Switch>
             </Router>
           </Provider>

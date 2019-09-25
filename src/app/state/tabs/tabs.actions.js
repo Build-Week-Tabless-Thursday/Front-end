@@ -1,4 +1,4 @@
-import { axiosWithAuth } from '../../utils/AxiosWithAuth';
+import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 //GET TABS
 export const GET_TABS_START = 'GET_TAB_START';

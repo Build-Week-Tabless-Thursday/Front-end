@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { axiosWithAuth } from '../../utils/AxiosWithAuth';
 import { getTabsAction } from '../../state/tabs/tabs.actions';
 
 import { UserSwitcher } from '../user/switcher.component';

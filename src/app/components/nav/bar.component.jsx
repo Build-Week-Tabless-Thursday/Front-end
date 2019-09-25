@@ -13,12 +13,13 @@ import {
   ListItemText,
   ListSubheader,
   Avatar,
+  AppBar,
 } from '@material-ui/core';
-import { MenuIcon, AddIcon, SearchIcon, MoreIcon } from '@material-ui/icons';
-// import MenuIcon from "@material-ui/icons/Menu";
-// import AddIcon from "@material-ui/icons/Add";
-// import SearchIcon from "@material-ui/icons/Search";
-// import MoreIcon from "@material-ui/icons/MoreVert";
+import { Menu, Add, Search, More } from '@material-ui/icons';
+// import MenuIcon from '@material-ui/icons/Menu';
+// import AddIcon from '@material-ui/icons/Add';
+// import SearchIcon from '@material-ui/icons/Search';
+// import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles(theme => ({
   text: {
@@ -239,7 +240,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const AppBar = () => {
+const NavBar = () => {
   const classes = useStyles();
 
   return (
@@ -268,23 +269,23 @@ const AppBar = () => {
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="open drawer">
-            <MenuIcon />
+            <Menu />
           </IconButton>
 
           <div className={classes.grow} />
           <IconButton color="inherit">
-            <SearchIcon />
+            <Search />
           </IconButton>
           <IconButton edge="end" color="inherit">
-            <MoreIcon />
+            <More />
           </IconButton>
         </Toolbar>
       </AppBar>
       <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-        <AddIcon />
+        <Add />
       </Fab>
     </React.Fragment>
   );
 };
 
-export { AppBar };
+export { NavBar };
