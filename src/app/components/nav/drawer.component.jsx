@@ -2,15 +2,12 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { axiosWithAuth } from '../../utils/AxiosWithAuth';
-
-// import { Icon, Button } from '@material-ui/core';
-import { getCategories } from '../../state/actions';
+import { getTabsAction } from '../../state/tabs/tabs.actions';
 
 import { UserSwitcher } from '../user/switcher.component';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Drawer, Button, List, Divider, ListItem, ListItemText } from '@material-ui/core';
-import { cs } from 'date-fns/esm/locale';
 
 const useStyles = makeStyles({
   list: {
@@ -34,7 +31,8 @@ let NavDrawer = props => {
   });
 
   useEffect(() => {
-    getCategories();
+    props.getTabsAction();
+    setState(props.categories);
   }, []);
 
   const toggleDrawer = (side, open) => event => {
@@ -131,7 +129,7 @@ const mapStateToProps = state => {
 
 NavDrawer = connect(
   mapStateToProps,
-  { getCategories }
+  { getTabsAction }
 )(NavDrawer);
 
 export { NavDrawer };
