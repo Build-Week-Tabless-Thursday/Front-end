@@ -16,3 +16,6 @@ const UserSwitcher = () => {
 };
 
 export { UserSwitcher };
+
+//props.signout
+//mapStateToProps and pass in the signout action
