@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/styles';
-import { AppBar, CardMedia, Icon, IconButton, Toolbar } from '@material-ui/core';
+import { AppBar, CircularProgress, CardMedia, Icon, IconButton, Toolbar } from '@material-ui/core';
 
 import { getTab, addTab, editTab, setError } from '../state/actions';
 import { Input } from '../components/reusable/input.component';
@@ -16,7 +16,6 @@ const styles = theme => ({
     minHeight: '100vh',
   },
   img: {
-    objectFit: 'cover',
     filter: 'brightness(0.5)',
     height: '20vh',
     [theme.breakpoints.up('sm')]: {
@@ -32,6 +31,14 @@ const styles = theme => ({
     padding: 10,
     marginBottom: 56,
     flexGrow: '1',
+    [theme.breakpoints.up('md')]: {
+      marginBottom: 0,
+    },
+  },
+  input: {
+    maxWidth: 1000,
+    marginRight: 'auto',
+    marginLeft: 'auto',
   },
   icon: {
     color: 'red',
@@ -41,9 +48,18 @@ const styles = theme => ({
     position: 'fixed',
     top: 'auto',
     bottom: 0,
+    [theme.breakpoints.up('md')]: {
+      position: 'relative',
+    },
   },
   grow: {
     flexGrow: 1,
+  },
+  loading: {
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -99,55 +115,22 @@ class TabPage extends React.Component {
 
   render() {
     try {
-      if (!this.state) return <div>Loading</div>;
-      const { tab } = this.state;
       const { categories, classes, history } = this.props;
+
+      if (!this.state)
+        return (
+          <div className={classes.loading}>
+            <CircularProgress />
+          </div>
+        );
+
+      const { tab } = this.state;
 
       return (
         <form className={classes.root} onSubmit={this.handleSubmit}>
-          {tab.preview && <CardMedia className={classes.img} src={tab.preview} component="img" />}
-          <div className={classes.inputs} style={{ backgroundColor: tab.backgroundColor }}>
-            <Input
-              elevation={8}
-              leadingIcon="bookmark"
-              placeholder="Title"
-              value={tab.title || ''}
-              onChange={this.handleChange('title')}
-            />
-            <Input
-              elevation={8}
-              leadingIcon="link"
-              placeholder="URL"
-              value={tab.url || ''}
-              onChange={this.handleChange('url')}
-            />
-            <Input
-              elevation={8}
-              leadingIcon="category"
-              placeholder="Category"
-              autoSuggest={categories}
-              value={tab.category || ''}
-              onChange={this.handleChange('category')}
-            />
-            <Input
-              elevation={8}
-              leadingIcon="access_time"
-              trailingIcon="arrow_drop_down"
-              placeholder="Due"
-              type="date"
-              value={tab.due || undefined}
-              onChange={this.handleChange('due')}
-            />
-            <Input
-              elevation={8}
-              leadingIcon="notes"
-              placeholder="Note"
-              multiline
-              rows={3}
-              value={tab.notes || ''}
-              onChange={this.handleChange('notes')}
-            />
-          </div>
+          {tab.preview && (
+            <CardMedia className={classes.img} src={tab.preview} alt={tab.url} component="img" />
+          )}
           <AppBar
             className={classes.appBar}
             color="primary"
@@ -155,15 +138,72 @@ class TabPage extends React.Component {
             elevation={0}
           >
             <Toolbar>
-              <IconButton edge="start" color="inherit" onClick={() => history.goBack()}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={() => history.goBack()}
+                aria-label="back"
+              >
                 <Icon>arrow_back</Icon>
               </IconButton>
               <div className={classes.grow} />
-              <IconButton type="submit" edge="end" color="inherit">
+              <IconButton type="submit" edge="end" color="inherit" aria-label="save">
                 <Icon>check</Icon>
               </IconButton>
             </Toolbar>
           </AppBar>
+          <div className={classes.inputs} style={{ backgroundColor: tab.backgroundColor }}>
+            <Input
+              className={classes.input}
+              elevation={8}
+              leadingIcon="bookmark"
+              placeholder="Title"
+              value={tab.title || ''}
+              onChange={this.handleChange('title')}
+              ariaLabel="title"
+            />
+            <Input
+              className={classes.input}
+              elevation={8}
+              leadingIcon="link"
+              placeholder="URL"
+              value={tab.url || ''}
+              onChange={this.handleChange('url')}
+              ariaLabel="url"
+            />
+            <Input
+              className={classes.input}
+              elevation={8}
+              leadingIcon="category"
+              placeholder="Category"
+              autoSuggest={categories}
+              value={tab.category || ''}
+              onChange={this.handleChange('category')}
+              ariaLabel="category"
+            />
+            <Input
+              className={classes.input}
+              elevation={8}
+              leadingIcon="access_time"
+              trailingIcon="arrow_drop_down"
+              placeholder="Due"
+              type="date"
+              value={tab.due || undefined}
+              onChange={this.handleChange('due')}
+              ariaLabel="due"
+            />
+            <Input
+              className={classes.input}
+              elevation={8}
+              leadingIcon="notes"
+              placeholder="Note"
+              multiline
+              rows={3}
+              value={tab.notes || ''}
+              onChange={this.handleChange('notes')}
+              ariaLabel="notes"
+            />
+          </div>
         </form>
       );
     } catch (err) {

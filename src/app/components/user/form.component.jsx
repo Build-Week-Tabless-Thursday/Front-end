@@ -3,7 +3,7 @@ import React from 'react';
 import { makeStyles, FormGroup, Button } from '@material-ui/core';
 import { Input } from '../../components/reusable/input.component';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '50%',
     minWidth: 500,
@@ -52,6 +52,7 @@ const UserForm = ({ button, buttonColor, email, link, linkLabel, onLink, onSubmi
           type="username"
           value={user.username}
           onChange={handleChange('username')}
+          ariaLabel="username"
         />
         <Input
           elevation={8}
@@ -59,8 +60,9 @@ const UserForm = ({ button, buttonColor, email, link, linkLabel, onLink, onSubmi
           placeholder="Email"
           style={{ display: email ? '' : 'none' }}
           type="email"
-          value={user.email}
+          value={email ? user.email : ''}
           onChange={handleChange('email')}
+          ariaLabel="email"
         />
         <Input
           elevation={8}
@@ -69,6 +71,7 @@ const UserForm = ({ button, buttonColor, email, link, linkLabel, onLink, onSubmi
           type="password"
           value={user.password}
           onChange={handleChange('password')}
+          ariaLabel="password"
         />
         <Button
           elevation={8}

@@ -78,6 +78,7 @@ const Input = props => {
     value,
     onChange,
     onClick,
+    ariaLabel,
   } = props;
   const classes = useStyles({ autoSuggest, rows });
 
@@ -124,8 +125,16 @@ const Input = props => {
             onChange: handleChange,
             disabled,
           }}
-          renderInputComponent={inputProps => <InputBase className={classes.input} {...inputProps} />}
-          renderSuggestionsContainer={options => <Paper {...options.containerProps}>{options.children}</Paper>}
+          renderInputComponent={inputProps => (
+            <InputBase
+              className={classes.input}
+              {...inputProps}
+              inputProps={{ 'aria-label': ariaLabel }}
+            />
+          )}
+          renderSuggestionsContainer={options => (
+            <Paper {...options.containerProps}>{options.children}</Paper>
+          )}
           renderSuggestion={(suggestionProps, suggestionMatch) => (
             <Suggestion {...suggestionProps} {...suggestionMatch} />
           )}
@@ -150,7 +159,12 @@ const Input = props => {
               value={value}
               onChange={handleChange}
               TextFieldComponent={inputProps => (
-                <InputBase className={classes.input} value={inputProps.value} onClick={inputProps.onClick} />
+                <InputBase
+                  className={classes.input}
+                  value={inputProps.value}
+                  onClick={inputProps.onClick}
+                  inputProps={{ 'aria-label': ariaLabel }}
+                />
               )}
             />
           </MuiPickersUtilsProvider>
@@ -167,6 +181,7 @@ const Input = props => {
             value={value}
             onChange={handleChange}
             onClick={onClick}
+            inputProps={{ 'aria-label': ariaLabel }}
           />
         )}
 

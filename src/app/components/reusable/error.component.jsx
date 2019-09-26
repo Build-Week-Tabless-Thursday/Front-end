@@ -1,35 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
-import CloseIcon from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-import WarningIcon from '@material-ui/icons/Warning';
-import { makeStyles } from '@material-ui/core/styles';
-import { CLEAR_ERROR } from '../../state/actions';
+import {
+  Snackbar,
+  SnackbarContent,
+  Icon,
+  makeStyles,
+  useTheme,
+  useMediaQuery,
+} from '@material-ui/core';
 
-const variantIcon = {
-  success: CheckCircleIcon,
-  warning: WarningIcon,
-  error: ErrorIcon,
-  info: InfoIcon,
-};
+import { CLEAR_ERROR } from '../../state/actions';
 
 const useStyles = makeStyles(theme => ({
   error: {
-    backgroundColor: theme.palette.error.dark,
-  },
-  info: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.error.light,
   },
   icon: {
     fontSize: 20,
-  },
-  iconVariant: {
     opacity: 0.9,
     marginRight: theme.spacing(1),
   },
@@ -43,11 +32,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ErrorComponent = () => {
+  const classes = useStyles();
+  const theme = useTheme();
+  const md = useMediaQuery(theme.breakpoints.up('md'));
   const [state, setState] = React.useState({
     open: false,
     error: '',
-    vertical: 'top',
-    horizontal: 'center',
   });
 
   const authError = useSelector(state => state.auth['error']);
@@ -71,16 +61,27 @@ const ErrorComponent = () => {
     if (!open) dispatch({ type: CLEAR_ERROR });
   }, [state.open]);
 
-  const { error, vertical, horizontal, open } = state;
+  const { error, open } = state;
   return (
     <Snackbar
       autoHideDuration={2000}
-      anchorOrigin={{ vertical, horizontal }}
-      key={`${vertical},${horizontal}`}
+      anchorOrigin={{
+        vertical: md ? 'bottom' : 'top',
+        horizontal: md ? 'left' : 'center',
+      }}
       open={open}
       onClose={() => setState({ ...state, open: false })}
-      message={<span id="message-id">{error}</span>}
-    />
+    >
+      <SnackbarContent
+        className={classes.error}
+        message={
+          <span className={classes.message}>
+            <Icon className={classes.icon}>error</Icon>
+            {error}
+          </span>
+        }
+      ></SnackbarContent>
+    </Snackbar>
   );
 };
 

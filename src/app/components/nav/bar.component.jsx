@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { CssBaseline, Toolbar, IconButton, AppBar, makeStyles } from '@material-ui/core';
-import { Menu, Search, Share } from '@material-ui/icons';
+import { CssBaseline, Toolbar, IconButton, AppBar, makeStyles, Icon } from '@material-ui/core';
 
 import { circleInsetBar } from '../../theme/var.theme';
 import { useRouter } from '../../hooks/router.hook';
@@ -40,22 +39,23 @@ const NavBar = ({ excludeRoutes, onMenu, onShare, onSearch }) => {
   const classes = useStyles();
   const router = useRouter();
 
-  if (excludeRoutes && excludeRoutes.find(route => router.location.pathname.includes(route))) return <div></div>;
+  if (excludeRoutes && excludeRoutes.find(route => router.location.pathname.includes(route)))
+    return <div></div>;
 
   return (
     <React.Fragment>
       <CssBaseline />
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
-          <IconButton color="inherit" onClick={onMenu}>
-            <Menu />
+          <IconButton color="inherit" onClick={onMenu} aria-label="menu">
+            <Icon>menu</Icon>
           </IconButton>
           <div className={classes.grow} />
-          <IconButton color="inherit" onClick={onSearch}>
-            <Search />
+          <IconButton color="inherit" onClick={onSearch} aria-label="search">
+            <Icon>search</Icon>
           </IconButton>
-          <IconButton edge="end" color="inherit">
-            <Share />
+          <IconButton edge="end" color="inherit" aria-label="search">
+            <Icon>share</Icon>
           </IconButton>
         </Toolbar>
       </AppBar>

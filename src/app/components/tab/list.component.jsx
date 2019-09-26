@@ -3,7 +3,7 @@ import React from 'react';
 import { TabCard } from './card.component';
 import { makeStyles } from '@material-ui/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   grid: {
     display: 'grid',
     gridGap: '10px',

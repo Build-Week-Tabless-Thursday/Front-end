@@ -1,7 +1,15 @@
 import React from 'react';
 import { useDispatch, useStore } from 'react-redux';
 
-import { Card, CardActions, CardMedia, Icon, IconButton, Typography, makeStyles } from '@material-ui/core';
+import {
+  Card,
+  CardActions,
+  CardMedia,
+  Icon,
+  IconButton,
+  Typography,
+  makeStyles,
+} from '@material-ui/core';
 
 import { defaultImg } from '../../theme/var.theme';
 import { useLocation } from '../../hooks/router.hook';
@@ -48,7 +56,12 @@ const TabCard = ({ tab }) => {
     <React.Fragment>
       <Card className={classes.card} style={{ backgroundColor }}>
         <a href={url}>
-          <CardMedia className={classes.preview} src={preview || defaultImg} component="img" />
+          <CardMedia
+            className={classes.preview}
+            src={preview || defaultImg}
+            alt={tab.url}
+            component="img"
+          />
         </a>
 
         <Typography component="h5" variant="h5" className={classes.overlay}>
@@ -56,7 +69,7 @@ const TabCard = ({ tab }) => {
         </Typography>
 
         <CardActions className={classes.icons} style={{ visibility: tab.id ? 'unset' : 'hidden' }}>
-          <IconButton onClick={() => navigate(`/tab/${tab.id}`)}>
+          <IconButton onClick={() => navigate(`/tab/${tab.id}`)} aria-label="edit">
             <Icon className={classes.icon} style={{ color }}>
               edit
             </Icon>
@@ -64,7 +77,7 @@ const TabCard = ({ tab }) => {
 
           <div className={classes.grow} />
           {/* <IconButton onClick={() => deleteTab(tab.id)(dispatch, store.getState)}> */}
-          <IconButton onClick={() => setState({ confirmIsOpen: true })}>
+          <IconButton onClick={() => setState({ confirmIsOpen: true })} aria-label="delete">
             <Icon className={classes.icon} style={{ color }}>
               delete
             </Icon>

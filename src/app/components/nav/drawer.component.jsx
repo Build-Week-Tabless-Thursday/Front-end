@@ -22,7 +22,8 @@ let NavDrawer = ({ excludeRoutes, open, categories, category, onClose, onChange,
   const md = useMediaQuery(theme.breakpoints.up('md'));
   const router = useRouter();
 
-  if (excludeRoutes && excludeRoutes.find(route => router.location.pathname.includes(route))) return <div></div>;
+  if (excludeRoutes && excludeRoutes.find(route => router.location.pathname.includes(route)))
+    return <div></div>;
 
   const handleChange = value => {
     setCategory(value);

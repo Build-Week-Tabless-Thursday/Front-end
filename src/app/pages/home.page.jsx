@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { Fab, Typography, withStyles } from '@material-ui/core';
+import { Fab, Typography, withStyles, CircularProgress } from '@material-ui/core';
 import { Add, NoteOutlined } from '@material-ui/icons';
 
 import { getTabs, getUser } from '../state/actions';
@@ -54,6 +54,12 @@ const styles = theme => ({
   search: {
     marginBottom: 20,
   },
+  loading: {
+    height: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 @connect(
@@ -75,8 +81,17 @@ class HomePage extends React.Component {
 
   render() {
     const { classes, history, tabs, category } = this.props;
+
+    if (!tabs)
+      return (
+        <div className={classes.loading}>
+          <CircularProgress />
+        </div>
+      );
+
     const filteredTabs = tabs.filter(tab => {
-      const searchMatch = tab.title.toLowerCase().includes(this.state.search.toLowerCase());
+      const searchMatch =
+        tab.title.toLowerCase().includes(this.state.search.toLowerCase()) || !this.state.searchOpen;
       const categoryMatch = tab.category === category || category === 'All';
       return searchMatch && categoryMatch;
     });
@@ -89,20 +104,23 @@ class HomePage extends React.Component {
             onChange={() => this.setState({ drawerOpen: false })}
             onClose={() => this.setState({ drawerOpen: false })}
           />
-
           <NavBar
             onMenu={() => this.setState({ drawerOpen: true })}
-            onSearch={() => this.setState({ searchOpen: true })}
+            onSearch={() => this.setState({ searchOpen: !this.state.searchOpen })}
           />
         </header>
         <main className={classes.root}>
           <Input
             className={classes.search}
+            style={{
+              display: this.state.searchOpen ? '' : 'none',
+            }}
             elevation={8}
             leadingIcon="search"
             placeholder="Search"
             value={this.state.search}
             onChange={search => this.setState({ search })}
+            ariaLabel="search"
           />
 
           <Typography variant="h5" gutterBottom>
@@ -116,7 +134,12 @@ class HomePage extends React.Component {
           )}
           {filteredTabs.length !== 0 && <TabList tabs={filteredTabs} />}
 
-          <Fab color="secondary" className={classes.fabButton} onClick={() => history.push('/create')}>
+          <Fab
+            color="secondary"
+            className={classes.fabButton}
+            onClick={() => history.push('/create')}
+            aria-label="add"
+          >
             <Add />
           </Fab>
         </main>

@@ -1,19 +1,21 @@
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
-//getting user profile (get)
+//GET USER
 export const GET_USER_START = 'GET_USER_START';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILURE = 'GET_USER_FAILURE';
 
-//editing user profile (put)
+//GET EDIT
 export const EDIT_USER_START = 'EDIT_USER_START';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 
+// ERRORS
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 const endpoint = 'https://tabless-thursdays.herokuapp.com/me';
 
+// GET USER
 export const getUser = () => dispatch => {
   dispatch({ type: GET_USER_START });
   axiosWithAuth()
@@ -27,6 +29,7 @@ export const getUser = () => dispatch => {
     });
 };
 
+//GET EDIT
 export const editUser = newUser => dispatch => {
   dispatch({ type: EDIT_USER_START });
   axiosWithAuth()

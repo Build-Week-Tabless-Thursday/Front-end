@@ -53,7 +53,9 @@ export const getTabs = () => dispatch => {
       dispatch({ type: SET_CATEGORIES_START });
       const categories = res.data
         .map(tab => tab.category)
-        .filter((category, index, categories) => categories.indexOf(category) === index && category);
+        .filter(
+          (category, index, categories) => categories.indexOf(category) === index && category
+        );
 
       dispatch({
         type: SET_CATEGORIES_SUCCESS,
@@ -87,7 +89,9 @@ export const addTab = tab => (dispatch, getState) => {
       dispatch({ type: SET_CATEGORIES_START });
       const categories = [...tabs, tab]
         .map(tab => tab.category)
-        .filter((category, index, categories) => categories.indexOf(category) === index && category);
+        .filter(
+          (category, index, categories) => categories.indexOf(category) === index && category
+        );
 
       dispatch({
         type: SET_CATEGORIES_SUCCESS,
@@ -124,7 +128,9 @@ export const editTab = (tab, id) => (dispatch, getState) => {
       dispatch({ type: SET_CATEGORIES_START });
       const categories = [...otherTabs, tab]
         .map(tab => tab.category)
-        .filter((category, index, categories) => categories.indexOf(category) === index && category);
+        .filter(
+          (category, index, categories) => categories.indexOf(category) === index && category
+        );
 
       dispatch({
         type: SET_CATEGORIES_SUCCESS,
@@ -150,7 +156,9 @@ export const deleteTab = id => (dispatch, getState) => {
       dispatch({ type: SET_CATEGORIES_START });
       const categories = tabs
         .map(tab => tab.category)
-        .filter((category, index, categories) => categories.indexOf(category) === index && category);
+        .filter(
+          (category, index, categories) => categories.indexOf(category) === index && category
+        );
 
       dispatch({
         type: SET_CATEGORIES_SUCCESS,
@@ -168,13 +176,15 @@ export const setCategory = category => (dispatch, getState) => {
   const categories = getState().tabs.categories;
 
   try {
-    if (!categories.find(items => items === category)) throw new Error('Category is does not exist');
+    if (!categories.find(items => items === category))
+      throw new Error('Category is does not exist');
     dispatch({ type: SET_CATEGORY_SUCCESS, payload: category });
   } catch (err) {
     dispatch({ type: SET_CATEGORY_FAILURE, payload: err.response });
   }
 };
 
+//SET ERROR
 export const setError = error => dispatch => {
   dispatch({ type: SET_TAB_ERROR, payload: error });
 };
