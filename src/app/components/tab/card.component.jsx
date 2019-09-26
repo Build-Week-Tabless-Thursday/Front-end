@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     transition: 'all 0.5s ease-in-out',
     textDecoration: 'none',
+    backgroundColor: theme.palette.secondary.main,
   },
   preview: {
     height: 151,
@@ -23,6 +24,12 @@ const useStyles = makeStyles(theme => ({
     bottom: '4.3rem',
     left: '20px',
     color: 'white',
+  },
+  icon: {
+    color: 'white',
+  },
+  icons: {
+    transition: 'all 0.5s ease-in-out',
   },
   grow: {
     flexGrow: 1,
@@ -45,14 +52,18 @@ const TabCard = ({ tab }) => {
         {title}
       </Typography>
 
-      <CardActions className={classes.icons}>
+      <CardActions className={classes.icons} style={{ visibility: tab.id ? 'unset' : 'hidden' }}>
         <IconButton onClick={() => navigate(`/tab/${tab.id}`)}>
-          <Icon style={{ color }}>edit</Icon>
+          <Icon className={classes.icon} style={{ color }}>
+            edit
+          </Icon>
         </IconButton>
 
         <div className={classes.grow} />
         <IconButton onClick={() => deleteTab(tab.id)(dispatch, store.getState)}>
-          <Icon style={{ color }}>delete</Icon>
+          <Icon className={classes.icon} style={{ color }}>
+            delete
+          </Icon>
         </IconButton>
       </CardActions>
     </Card>

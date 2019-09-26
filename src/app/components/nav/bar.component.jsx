@@ -1,8 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, Toolbar, IconButton, AppBar } from '@material-ui/core';
+
+import { CssBaseline, Toolbar, IconButton, AppBar, makeStyles } from '@material-ui/core';
 import { Menu, Search, Share } from '@material-ui/icons';
+
 import { circleInsetBar } from '../../theme/var.theme';
+import { useRouter } from '../../hooks/router.hook';
 
 const useStyles = makeStyles(theme => ({
   text: {
@@ -22,6 +24,10 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     backgroundColor: theme.palette.primary.background,
     clipPath: circleInsetBar,
+    [theme.breakpoints.up('md')]: {
+      position: 'relative',
+      clipPath: 'unset',
+    },
   },
   toolbar: {},
   grow: {
@@ -29,8 +35,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const NavBar = ({ onMenu, onShare, onSearch }) => {
+const NavBar = ({ excludeRoutes, onMenu, onShare, onSearch }) => {
   const classes = useStyles();
+  const router = useRouter();
+
+  if (excludeRoutes && excludeRoutes.find(route => router.location.pathname.includes(route))) return <div></div>;
 
   return (
     <React.Fragment>

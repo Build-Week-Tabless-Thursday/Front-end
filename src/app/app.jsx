@@ -14,7 +14,6 @@ import { HomePage } from './pages/home.page';
 import { LoginPage } from './pages/login.page';
 import { SharePage } from './pages/share.page';
 import { TabPage } from './pages/tab.page';
-import { SignupPage } from './pages/signup.page';
 
 import { store } from './state/store';
 import { TabSearch } from './components/tab/search.component';
@@ -35,15 +34,16 @@ export class App extends React.Component {
               <NavBar
                 onMenu={() => this.setState({ drawerOpen: true })}
                 onSearch={() => this.setState({ searchOpen: true })}
+                excludeRoutes={['/login', '/create', '/tab']}
               />
               <NavDrawer
-                anchor="bottom"
                 open={this.state.drawerOpen}
+                onChange={() => this.setState({ drawerOpen: false })}
                 onClose={() => this.setState({ drawerOpen: false })}
+                excludeRoutes={['/login', '/create', '/tab']}
               />
               <Switch>
                 <Route exact path="/login" component={LoginPage} />
-                <Route exact path="/signup" component={SignupPage} />
 
                 <PrivateRoutes>
                   <Route exact path="/" component={HomePage} />

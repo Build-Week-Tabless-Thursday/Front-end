@@ -1,12 +1,12 @@
 import { axiosWithAuth } from '../../utils/axiosWithAuth';
 
 //GET TABS
-export const GET_TABS_START = 'GET_TAB_START';
-export const GET_TABS_SUCCESS = 'GET_TAB_SUCCESS';
-export const GET_TABS_FAILURE = 'GET_TAB_FAILURE';
+export const GET_TABS_START = 'GET_TABS_START';
+export const GET_TABS_SUCCESS = 'GET_TABS_SUCCESS';
+export const GET_TABS_FAILURE = 'GET_TABS_FAILURE';
 
 //SET CATEGORIES
-export const SET_CATEGORIES_START = 'GET_TAB_START';
+export const SET_CATEGORIES_START = 'SET_CATEGORIES_START';
 export const SET_CATEGORIES_SUCCESS = 'SET_CATEGORIES_SUCCESS';
 export const SET_CATEGORIES_FAILURE = 'SET_CATEGORIES_FAILURE';
 
@@ -18,8 +18,8 @@ export const ADD_TAB_FAILURE = 'ADD_TAB_SUCCESS';
 
 //DELETE INDIVIDUAL TAB
 export const DELETE_TAB_START = 'DELETE_TAB_START';
-export const DELETE_TAB_SUCCESS = 'DELETE_TAB_SUCESS';
-export const DELETE_TAB_FAILURE = 'DELETE_TAB_SUCCESS';
+export const DELETE_TAB_SUCCESS = 'DELETE_TAB_SUCCESS';
+export const DELETE_TAB_FAILURE = 'DELETE_TAB_FAILURE';
 
 //EDIT INDIVIDUAL TAB
 export const EDIT_TAB_START = 'EDIT_TAB_START';
@@ -72,11 +72,21 @@ export const addTab = tab => (dispatch, getState) => {
   dispatch({ type: ADD_TAB_START });
   const tabs = getState().tabs.list;
 
-  // dispatch({ type: ADD_TAB_LOCAL, payload: [...tabs, tabs] });
+  // dispatch({ type: ADD_TAB_LOCAL, payload: [...tabs, tab] });
   axiosWithAuth()
     .post('https://bw-tabless.herokuapp.com/tab', tab)
     .then(res => {
       dispatch({ type: ADD_TAB_SUCCESS, payload: res.data });
+
+      dispatch({ type: SET_CATEGORIES_START });
+      const categories = [...tabs, tab]
+        .map(tab => tab.category)
+        .filter((category, index, categories) => categories.indexOf(category) === index && category);
+
+      dispatch({
+        type: SET_CATEGORIES_SUCCESS,
+        payload: categories,
+      });
     })
     .catch(err => {
       dispatch({ type: ADD_TAB_FAILURE, payload: err.response });
@@ -96,14 +106,24 @@ export const getTab = id => () => {
 //EDIT TAB
 export const editTab = (tab, id) => (dispatch, getState) => {
   dispatch({ type: EDIT_TAB_START });
-  const tabs = getState().tabs.list.filter(tab => tab.id !== id);
-  console.log(tabs);
+  const tabs = getState().tabs.list;
+  const otherTabs = tabs.filter(item => item.id.toString() !== id);
 
   axiosWithAuth()
     .put(`https://bw-tabless.herokuapp.com/tab/${id}`, { ...tab, preview: null })
     .then(res => {
       console.log('edit tab', res);
-      if (res.data) dispatch({ type: EDIT_TAB_SUCCESS, payload: [...tabs, tab] });
+      if (res.data) dispatch({ type: EDIT_TAB_SUCCESS, payload: [...otherTabs, tab] });
+
+      dispatch({ type: SET_CATEGORIES_START });
+      const categories = [...otherTabs, tab]
+        .map(tab => tab.category)
+        .filter((category, index, categories) => categories.indexOf(category) === index && category);
+
+      dispatch({
+        type: SET_CATEGORIES_SUCCESS,
+        payload: categories,
+      });
     })
     .catch(err => {
       dispatch({ type: EDIT_TAB_FAILURE, payload: err.response });
@@ -118,8 +138,18 @@ export const deleteTab = id => (dispatch, getState) => {
   axiosWithAuth()
     .delete(`https://bw-tabless.herokuapp.com/tab/${id}`)
     .then(res => {
-      console.log('Delete tab', res);
+      console.log('delete tab', res);
       if (res.data) dispatch({ type: DELETE_TAB_SUCCESS, payload: tabs });
+
+      dispatch({ type: SET_CATEGORIES_START });
+      const categories = tabs
+        .map(tab => tab.category)
+        .filter((category, index, categories) => categories.indexOf(category) === index && category);
+
+      dispatch({
+        type: SET_CATEGORIES_SUCCESS,
+        payload: categories,
+      });
     })
     .catch(err => {
       dispatch({ type: DELETE_TAB_FAILURE, payload: err.response });

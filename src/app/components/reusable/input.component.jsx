@@ -62,20 +62,22 @@ const Suggestion = ({ label, query, isHighlighted }) => {
   );
 };
 
-const Input = ({
-  leadingIcon,
-  trailingIcon,
-  elevation,
-  disabled,
-  label,
-  placeholder,
-  rows,
-  autoSuggest,
-  type,
-  value,
-  onChange,
-  onClick,
-}) => {
+const Input = props => {
+  const {
+    leadingIcon,
+    trailingIcon,
+    elevation,
+    disabled,
+    label,
+    placeholder,
+    rows,
+    autoSuggest,
+    style,
+    type,
+    value,
+    onChange,
+    onClick,
+  } = props;
   const classes = useStyles({ autoSuggest, rows });
 
   const [suggestions, setSuggestions] = React.useState([]);
@@ -99,8 +101,13 @@ const Input = ({
       }));
   };
 
+  const handleChange = newValue => {
+    if (newValue.target) newValue = newValue.target.value;
+    onChange(newValue);
+  };
+
   return (
-    <Paper className={classes.root} elevation={elevation}>
+    <Paper className={classes.root} elevation={elevation} style={style}>
       {leadingIcon && (
         <div className={classes.icon}>
           <Icon>{leadingIcon}</Icon>
@@ -113,10 +120,7 @@ const Input = ({
           inputProps={{
             placeholder,
             value,
-            onChange: (e, { newValue }) => {
-              e.target.value = newValue;
-              onChange(e);
-            },
+            onChange: handleChange,
             disabled,
           }}
           renderInputComponent={inputProps => <InputBase className={classes.input} {...inputProps} />}
@@ -143,7 +147,7 @@ const Input = ({
               disabled={disabled}
               placeholder={placeholder}
               value={value}
-              onChange={value => onChange({ target: { value } })}
+              onChange={handleChange}
               TextFieldComponent={inputProps => (
                 <InputBase className={classes.input} value={inputProps.value} onClick={inputProps.onClick} />
               )}
@@ -160,7 +164,7 @@ const Input = ({
             rowsMax={rows}
             type={type}
             value={value}
-            onChange={onChange}
+            onChange={handleChange}
             onClick={onClick}
           />
         )}

@@ -7,6 +7,7 @@ import { AppBar, CardMedia, Icon, IconButton, Toolbar } from '@material-ui/core'
 
 import { getTab, addTab, editTab } from '../state/actions';
 import { Input } from '../components/reusable/input.component';
+import { formatURL } from '../utils/formatURL';
 
 const styles = theme => ({
   root: {
@@ -66,11 +67,11 @@ class TabPage extends React.Component {
   }
 
   handleChange(key) {
-    return e => {
+    return value => {
       this.setState({
         tab: {
           ...this.state.tab,
-          [key]: e.target.value,
+          [key]: value,
         },
       });
     };
@@ -78,17 +79,22 @@ class TabPage extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { addTab, editTab, match, history, onError } = this.props;
+    const { addTab, editTab, match, history } = this.props;
     const { tab } = this.state;
     const submit = match.params.id ? editTab : addTab;
     try {
       if (!tab.title) throw new Error('A title is required...');
       if (!tab.url) throw new Error('A URL is required...');
+      tab.url = formatURL(tab.url);
       submit(tab, match.params.id);
       history.goBack();
     } catch (err) {
-      onError(err.toString());
+      this.handleError(err.toString());
     }
+  }
+
+  handleError(err) {
+    console.log(err);
   }
 
   render() {

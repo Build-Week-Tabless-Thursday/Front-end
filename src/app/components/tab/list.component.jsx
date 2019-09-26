@@ -16,7 +16,7 @@ const TabList = ({ tabs }) => {
   return (
     <div className={classes.grid}>
       {tabs.map(tab => (
-        <TabCard tab={tab} key={tab.id} />
+        <TabCard tab={tab} key={tab.id || 'new...'} />
       ))}
     </div>
   );

@@ -1,15 +1,36 @@
+import { CHECK_TOKEN_START, CHECK_TOKEN_SUCCESS, CHECK_TOKEN_FAILURE } from './auth.actions';
 import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from './auth.actions';
 import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './auth.actions';
 import { SIGNOUT_START, SIGNOUT_SUCCESS, SIGNOUT_FAILURE } from './auth.actions';
 import { DELETE_ACCOUNT_START, DELETE_ACCOUNT_SUCCESS, DELETE_ACCOUNT_FAILURE } from './auth.actions';
 
 const initialState = {
-  token: localStorage.getItem('token'),
+  token: '',
   error: '',
 };
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    // CHECK TOKEN
+    case CHECK_TOKEN_START:
+      return {
+        ...state,
+      };
+    case CHECK_TOKEN_SUCCESS:
+      return {
+        ...state,
+        token: action.payload,
+        error: '',
+      };
+    case CHECK_TOKEN_FAILURE:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: '',
+        error: action.payload,
+      };
+
+    // LOGIN
     case LOGIN_START:
       return {
         ...state,
@@ -19,7 +40,7 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload,
-        loginError: '',
+        error: '',
       };
     case LOGIN_FAILURE:
       localStorage.removeItem('token');
@@ -29,6 +50,7 @@ export const authReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
+    // SIGNUP
     case SIGNUP_START:
       return {
         ...state,
@@ -48,6 +70,7 @@ export const authReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
+    // SIGNOUT
     case SIGNOUT_START:
       return {
         ...state,
@@ -64,6 +87,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
       };
 
+    // DELETE ACCOUNT
     case DELETE_ACCOUNT_START:
       return {
         ...state,
