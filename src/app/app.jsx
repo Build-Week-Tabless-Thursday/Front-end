@@ -9,6 +9,7 @@ import { CssBaseline } from '@material-ui/core';
 import { NavBar } from './components/nav/bar.component';
 import { NavDrawer } from './components/nav/drawer.component';
 import { PrivateRoutes } from './components/reusable/private-route.component';
+import { Confirm } from './components/reusable/Confirm.component';
 
 import { HomePage } from './pages/home.page';
 import { LoginPage } from './pages/login.page';
@@ -50,6 +51,7 @@ export class App extends React.Component {
                   <Route exact path="/create" component={TabPage} />
                   <Route exact path="/share/:uuid" component={SharePage} />
                   <Route exact path="/tab/:id" component={TabPage} />
+                  <Route exact path="/confirm" component={Confirm} />
                 </PrivateRoutes>
 
                 {/* TESTING */}
