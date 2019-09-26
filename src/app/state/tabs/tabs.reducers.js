@@ -17,8 +17,10 @@ const initialState = {
   error: '',
 };
 
+//REDUCER FOR TABS
 export const tabsReducer = (state = initialState, action) => {
   switch (action.type) {
+    //GET TAB
     case GET_TABS_START:
       return {
         ...state,
@@ -34,6 +36,7 @@ export const tabsReducer = (state = initialState, action) => {
         err: action.payload,
       };
 
+    //SET CATEGORIES
     case SET_CATEGORIES_START:
       return {
         ...state,
@@ -49,6 +52,7 @@ export const tabsReducer = (state = initialState, action) => {
         err: action.payload,
       };
 
+    //ADD TAB
     case ADD_TAB_START:
       return {
         ...state,
@@ -69,6 +73,7 @@ export const tabsReducer = (state = initialState, action) => {
         err: action.payload,
       };
 
+    //DELETE TAB
     case DELETE_TAB_START:
       return {
         ...state,
@@ -84,6 +89,7 @@ export const tabsReducer = (state = initialState, action) => {
         err: action.payload,
       };
 
+    //EDIT TAB
     case EDIT_TAB_START:
       return {
         ...state,
@@ -99,6 +105,7 @@ export const tabsReducer = (state = initialState, action) => {
         err: action.payload,
       };
 
+    //SET CATEGORY
     case SET_CATEGORY_START:
       return {
         ...state,
@@ -114,6 +121,7 @@ export const tabsReducer = (state = initialState, action) => {
         err: action.payload,
       };
 
+    //SET TAB
     case SET_TAB_ERROR:
       return {
         ...state,

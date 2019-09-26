@@ -8,6 +8,7 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    //GET USER
     case GET_USER_START:
       return {
         ...state,
@@ -23,6 +24,7 @@ export const userReducer = (state = initialState, action) => {
         error: action.payload,
       };
 
+    //EDIT USER
     case EDIT_USER_START:
       return {
         ...state,
