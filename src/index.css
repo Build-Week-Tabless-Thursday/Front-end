@@ -4,8 +4,3 @@ html, body {
   background-color: #F5F5F5 !important;
   overscroll-behavior: none;
 }
-
-* {
-  box-sizing: border-box;
-  max-width: 100%;
-}
