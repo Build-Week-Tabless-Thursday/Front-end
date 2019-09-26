@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useStore } from 'react-redux';
 
-import * as Vibrant from 'node-vibrant';
 import { Card, CardActions, CardMedia, Icon, IconButton, Typography, makeStyles } from '@material-ui/core';
 
+import { defaultImg } from '../../theme/var.theme';
 import { useLocation } from '../../hooks/router.hook';
 import { deleteTab } from '../../state/actions';
 
@@ -11,7 +11,6 @@ const useStyles = makeStyles(theme => ({
   card: {
     position: 'relative',
     transition: 'all 0.5s ease-in-out',
-    opacity: '0',
     textDecoration: 'none',
   },
   preview: {
@@ -35,20 +34,11 @@ const TabCard = ({ tab }) => {
   const dispatch = useDispatch();
   const store = useStore();
   const { navigate } = useLocation();
-
-  const [colors, setColors] = React.useState({});
-  React.useEffect(() => {
-    const vibrant = new Vibrant(`data:image/jpg;base64,  ${preview}`);
-    vibrant.getPalette((_, palette) => {
-      setColors({ card: palette['Vibrant'].getHex(), text: palette['DarkMuted'].getBodyTextColor() });
-    });
-  }, [tab]);
-
-  const { title, url, preview } = tab;
+  const { title, url, preview, color, backgroundColor } = tab;
   return (
-    <Card className={classes.card} style={{ backgroundColor: colors.card, opacity: colors.card ? 100 : 100 }}>
+    <Card className={classes.card} style={{ backgroundColor }}>
       <a href={url}>
-        <CardMedia className={classes.preview} src={`data:image/jpg;base64,  ${preview}`} component="img" />
+        <CardMedia className={classes.preview} src={preview || defaultImg} component="img" />
       </a>
 
       <Typography component="h5" variant="h5" className={classes.overlay}>
@@ -57,12 +47,12 @@ const TabCard = ({ tab }) => {
 
       <CardActions className={classes.icons}>
         <IconButton onClick={() => navigate(`/tab/${tab.id}`)}>
-          <Icon style={{ color: colors.text }}>edit</Icon>
+          <Icon style={{ color }}>edit</Icon>
         </IconButton>
 
         <div className={classes.grow} />
         <IconButton onClick={() => deleteTab(tab.id)(dispatch, store.getState)}>
-          <Icon style={{ color: colors.text }}>delete</Icon>
+          <Icon style={{ color }}>delete</Icon>
         </IconButton>
       </CardActions>
     </Card>
