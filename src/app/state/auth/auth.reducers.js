@@ -3,6 +3,7 @@ import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from './auth.actions';
 import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_FAILURE } from './auth.actions';
 import { SIGNOUT_START, SIGNOUT_SUCCESS, SIGNOUT_FAILURE } from './auth.actions';
 import { DELETE_ACCOUNT_START, DELETE_ACCOUNT_SUCCESS, DELETE_ACCOUNT_FAILURE } from './auth.actions';
+import { CLEAR_ERROR } from '../actions';
 
 const initialState = {
   token: '',
@@ -104,6 +105,13 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
       };
+
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: '',
+      };
+
     default:
       return state;
   }

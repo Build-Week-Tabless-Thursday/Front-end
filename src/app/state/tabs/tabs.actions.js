@@ -31,12 +31,18 @@ export const SET_CATEGORY_START = 'SET_CATEGORY_START';
 export const SET_CATEGORY_SUCCESS = 'SET_CATEGORY_SUCCESS';
 export const SET_CATEGORY_FAILURE = 'SET_CATEGORY_FAILURE';
 
+// ERRORS
+export const SET_TAB_ERROR = 'SET_TAB_ERROR';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+
+const endpoint = 'https://tabless-thursdays.herokuapp.com';
+
 //GET TABS
 export const getTabs = () => dispatch => {
   dispatch({ type: GET_TABS_START });
 
   axiosWithAuth()
-    .get('https://bw-tabless.herokuapp.com/tabs')
+    .get(`${endpoint}/tabs`)
     .then(res => {
       console.log(res);
       dispatch({
@@ -74,9 +80,9 @@ export const addTab = tab => (dispatch, getState) => {
 
   // dispatch({ type: ADD_TAB_LOCAL, payload: [...tabs, tab] });
   axiosWithAuth()
-    .post('https://bw-tabless.herokuapp.com/tab', tab)
+    .post(`${endpoint}/tab`, tab)
     .then(res => {
-      dispatch({ type: ADD_TAB_SUCCESS, payload: res.data });
+      dispatch({ type: ADD_TAB_SUCCESS, payload: [...tabs, res.data] });
 
       dispatch({ type: SET_CATEGORIES_START });
       const categories = [...tabs, tab]
@@ -96,7 +102,7 @@ export const addTab = tab => (dispatch, getState) => {
 //GET TAB
 export const getTab = id => () => {
   return axiosWithAuth()
-    .get(`https://bw-tabless.herokuapp.com/tab/${id}`)
+    .get(`${endpoint}/tab/${id}`)
     .then(res => {
       console.log('get tab', res);
       return res.data;
@@ -110,7 +116,7 @@ export const editTab = (tab, id) => (dispatch, getState) => {
   const otherTabs = tabs.filter(item => item.id.toString() !== id);
 
   axiosWithAuth()
-    .put(`https://bw-tabless.herokuapp.com/tab/${id}`, { ...tab, preview: null })
+    .put(`${endpoint}/tab/${id}`, { ...tab, preview: null })
     .then(res => {
       console.log('edit tab', res);
       if (res.data) dispatch({ type: EDIT_TAB_SUCCESS, payload: [...otherTabs, tab] });
@@ -136,7 +142,7 @@ export const deleteTab = id => (dispatch, getState) => {
   const tabs = getState().tabs.list.filter(tab => tab.id !== id);
 
   axiosWithAuth()
-    .delete(`https://bw-tabless.herokuapp.com/tab/${id}`)
+    .delete(`${endpoint}/tab/${id}`)
     .then(res => {
       console.log('delete tab', res);
       if (res.data) dispatch({ type: DELETE_TAB_SUCCESS, payload: tabs });
@@ -167,4 +173,8 @@ export const setCategory = category => (dispatch, getState) => {
   } catch (err) {
     dispatch({ type: SET_CATEGORY_FAILURE, payload: err.response });
   }
+};
+
+export const setError = error => dispatch => {
+  dispatch({ type: SET_TAB_ERROR, payload: error });
 };

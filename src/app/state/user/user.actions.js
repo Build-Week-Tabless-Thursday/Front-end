@@ -10,7 +10,9 @@ export const EDIT_USER_START = 'EDIT_USER_START';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 
-const endpoint = 'https://bw-tabless.herokuapp.com/me';
+export const CLEAR_ERROR = 'CLEAR_ERROR';
+
+const endpoint = 'https://tabless-thursdays.herokuapp.com/me';
 
 export const getUser = () => dispatch => {
   dispatch({ type: GET_USER_START });

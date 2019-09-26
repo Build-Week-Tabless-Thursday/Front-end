@@ -29,8 +29,6 @@ let NavDrawer = ({ excludeRoutes, open, categories, category, onClose, onChange,
     onChange(value);
   };
 
-  console.log(category);
-
   return (
     <Drawer anchor={md ? 'left' : 'bottom'} open={open} onClose={onClose}>
       <aside className={classes.drawer}>

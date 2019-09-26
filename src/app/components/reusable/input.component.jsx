@@ -64,6 +64,7 @@ const Suggestion = ({ label, query, isHighlighted }) => {
 
 const Input = props => {
   const {
+    className,
     leadingIcon,
     trailingIcon,
     elevation,
@@ -107,7 +108,7 @@ const Input = props => {
   };
 
   return (
-    <Paper className={classes.root} elevation={elevation} style={style}>
+    <Paper className={`${classes.root} ${className}`} elevation={elevation} style={style}>
       {leadingIcon && (
         <div className={classes.icon}>
           <Icon>{leadingIcon}</Icon>

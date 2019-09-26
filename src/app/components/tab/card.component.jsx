@@ -6,7 +6,7 @@ import { Card, CardActions, CardMedia, Icon, IconButton, Typography, makeStyles 
 import { defaultImg } from '../../theme/var.theme';
 import { useLocation } from '../../hooks/router.hook';
 import { deleteTab } from '../../state/actions';
-import { Confirm } from '../reusable/Confirm.component';
+import { Confirm } from '../reusable/confirm.component';
 
 const useStyles = makeStyles(theme => ({
   card: {
