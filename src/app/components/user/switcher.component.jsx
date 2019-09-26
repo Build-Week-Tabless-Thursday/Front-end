@@ -1,21 +1,26 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import { signout } from '../../state/auth/auth.actions';
+import { useDispatch, useStore } from 'react-redux';
 
 const UserSwitcher = () => {
-  // const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState();
+  const dispatch = useDispatch();
+  const store = useStore();
 
-  const user = JSON.parse(localStorage.getItem('currentUser'));
-  console.log('user', user);
+  React.useEffect(() => {
+    console.log('user', user);
+    setUser(store.getState().user.details);
+  }, [store.getState()]);
+
+  console.log('set user', user);
 
   return (
     <section>
       <h1> HELLO I'M SWITCHER COMPONENT</h1>
-      {/* {user && user.name} */}
+      {user && user.username}
     </section>
   );
 };
 
 export { UserSwitcher };
-
-//props.signout
-//mapStateToProps and pass in the signout action

@@ -2,7 +2,7 @@ import { GET_USER_SUCCESS, GET_USER_START, GET_USER_FAILURE } from './user.actio
 import { EDIT_USER_SUCCESS, EDIT_USER_FAILURE, EDIT_USER_START } from './user.actions';
 
 const initialState = {
-  user: { email: '', password: '' },
+  details: { email: '', username: '' },
   error: '',
 };
 
@@ -15,7 +15,7 @@ export const userReducer = (state = initialState, action) => {
     case GET_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        details: action.payload,
       };
     case GET_USER_FAILURE:
       return {
@@ -30,7 +30,7 @@ export const userReducer = (state = initialState, action) => {
     case EDIT_USER_SUCCESS:
       return {
         ...state,
-        user: action.payload,
+        details: action.payload,
       };
     case EDIT_USER_FAILURE:
       return {
