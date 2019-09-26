@@ -1,33 +1,43 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { Drawer, Divider } from '@material-ui/core';
+import { Drawer, Divider, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 
+import { useRouter } from '../../hooks/router.hook';
 import { setCategory } from '../../state/actions';
 import { TabCategories } from '../tab/categories.component';
 import { UserSwitcher } from '../user/switcher.component';
 
 const useStyles = makeStyles({
-  list: {
-    width: 250,
+  drawer: {
+    padding: 10,
+    minWidth: '260px',
   },
-  fullList: {
-    width: 'auto',
-  },
-  icon: {
-    color: 'white',
-  },
+  divider: {},
 });
 
-let NavDrawer = ({ anchor, open, categories, onClose, setCategory }) => {
+let NavDrawer = ({ excludeRoutes, open, categories, category, onClose, onChange, setCategory }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const md = useMediaQuery(theme.breakpoints.up('md'));
+  const router = useRouter();
+
+  if (excludeRoutes && excludeRoutes.find(route => router.location.pathname.includes(route))) return <div></div>;
+
+  const handleChange = value => {
+    setCategory(value);
+    onChange(value);
+  };
+
+  console.log(category);
 
   return (
-    <Drawer anchor={anchor} open={open} onClose={onClose}>
-      <UserSwitcher />
-      <Divider />
-      <TabCategories categories={categories} onChange={setCategory} />
+    <Drawer anchor={md ? 'left' : 'bottom'} open={open} onClose={onClose}>
+      <aside className={classes.drawer}>
+        <UserSwitcher onSignOut={onChange} />
+        <Divider className={classes.divider} />
+        <TabCategories categories={categories} selected={category} onChange={handleChange} />
+      </aside>
     </Drawer>
   );
 };
@@ -35,6 +45,7 @@ let NavDrawer = ({ anchor, open, categories, onClose, setCategory }) => {
 NavDrawer = connect(
   state => ({
     categories: state.tabs.categories,
+    category: state.tabs.category,
   }),
   { setCategory }
 )(NavDrawer);

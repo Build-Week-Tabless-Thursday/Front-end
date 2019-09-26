@@ -1,25 +1,44 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { signout } from '../../state/auth/auth.actions';
-import { useDispatch, useStore } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useStore } from 'react-redux';
 
-const useStyles = makeStyles({
-  container: {
+import { Button, Typography, makeStyles } from '@material-ui/core';
+
+import { signout } from '../../state/auth/auth.actions';
+
+const useStyles = makeStyles(theme => ({
+  root: {
     display: 'flex',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    margin: 10,
+    marginTop: 0,
+    [theme.breakpoints.up('md')]: {
+      flexDirection: 'column',
+      alignItems: 'start',
+    },
   },
-  signoutbutton: {
+  user: {
+    marginBottom: 10,
+    [theme.breakpoints.up('md')]: {
+      width: '100%',
+    },
+  },
+  link: {
+    [theme.breakpoints.up('md')]: {
+      width: '100%',
+    },
     textDecoration: 'none',
-    alignItems: 'center',
-    color: 'black',
   },
-});
+  signout: {
+    [theme.breakpoints.up('md')]: {
+      width: '100%',
+    },
+  },
+}));
 
-const UserSwitcher = props => {
-  console.log('signout', signout);
+const UserSwitcher = ({ onSignOut }) => {
   const classes = useStyles();
 
   const [user, setUser] = React.useState();
@@ -27,27 +46,32 @@ const UserSwitcher = props => {
   const store = useStore();
 
   React.useEffect(() => {
-    console.log('user', user);
     setUser(store.getState().user.details);
   }, [store.getState()]);
 
-  console.log('set user', user);
+  const handleSignOut = () => {
+    onSignOut();
+    signout()(dispatch);
+  };
 
   return (
-    <section className={classes.container}>
-      <h1 className={classes.username}> User: {user && user.username}</h1>
-      {/* <h1 className={classes.signout} onClick={signout}>
-        {' '}
-        Sign Out{' '}
-      </h1> */}
+    <section className={classes.root}>
+      <div className={classes.user}>
+        <Typography component="h4" variant="h5">
+          {user && user.username}
+        </Typography>
+        <Typography component="span" variant="subtitle2" gutterBottom>
+          {user && user.email}
+        </Typography>
+      </div>
 
-      <NavLink className={classes.signoutbutton} to="/login" onClick={() => localStorage.removeItem('token')}>
-        <h1> Sign Out </h1>
+      <NavLink className={classes.link} to="/login">
+        <Button className={classes.signout} onClick={handleSignOut}>
+          Sign Out
+        </Button>
       </NavLink>
     </section>
   );
 };
 
 export { UserSwitcher };
-
-//useLocation

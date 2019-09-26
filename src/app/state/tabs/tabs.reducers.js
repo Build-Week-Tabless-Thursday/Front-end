@@ -8,7 +8,7 @@ import { SET_CATEGORY_START, SET_CATEGORY_SUCCESS, SET_CATEGORY_FAILURE } from '
 const initialState = {
   list: [],
   categories: ['All'],
-  category: '',
+  category: 'All',
   error: '',
 };
 

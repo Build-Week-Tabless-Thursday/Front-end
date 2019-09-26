@@ -17,25 +17,23 @@ const useStyles = makeStyles(theme => ({
     marginLeft: 'auto',
   },
   link: {
+    color: 'white',
     margin: 10,
     marginRight: 'auto',
     marginLeft: 'auto',
     textDecoration: 'none',
   },
-  linkButton: {
-    color: 'white',
-  },
 }));
 
-const UserForm = ({ button, buttonColor, email, link, linkLabel, onSubmit }) => {
+const UserForm = ({ button, buttonColor, email, link, linkLabel, onLink, onSubmit }) => {
   const classes = useStyles({});
   const [user, setUser] = React.useState({ username: '', email: '', password: '' });
 
   const handleChange = key => {
-    return e => {
+    return value => {
       setUser({
         ...user,
-        [key]: e.target.value,
+        [key]: value,
       });
     };
   };
@@ -52,22 +50,24 @@ const UserForm = ({ button, buttonColor, email, link, linkLabel, onSubmit }) => 
           elevation={8}
           leadingIcon="account_circle"
           placeholder="Username"
+          type="username"
           value={user.username}
           onChange={handleChange('username')}
         />
-        {email && (
-          <Input
-            elevation={8}
-            leadingIcon="email"
-            placeholder="Email"
-            value={user.email}
-            onChange={handleChange('email')}
-          />
-        )}
+        <Input
+          elevation={8}
+          leadingIcon="email"
+          placeholder="Email"
+          style={{ display: email ? '' : 'none' }}
+          type="email"
+          value={user.email}
+          onChange={handleChange('email')}
+        />
         <Input
           elevation={8}
           leadingIcon="lock"
           placeholder="Password"
+          type="password"
           value={user.password}
           onChange={handleChange('password')}
         />
@@ -81,11 +81,9 @@ const UserForm = ({ button, buttonColor, email, link, linkLabel, onSubmit }) => 
           {button}
         </Button>
         {link && linkLabel && (
-          <NavLink className={classes.link} to={link}>
-            <Button className={classes.linkButton} variant="text">
-              {linkLabel}
-            </Button>
-          </NavLink>
+          <Button className={classes.link} variant="text" onClick={onLink}>
+            {linkLabel}
+          </Button>
         )}
       </FormGroup>
     </form>

@@ -35,12 +35,17 @@ const styles = theme => ({
   fabButton: {
     position: 'fixed',
     zIndex: 1,
-    bottom: 20,
+    bottom: 30,
+    right: 0,
+    left: 0,
     [theme.breakpoints.up('sm')]: {
       bottom: 36,
     },
-    left: 0,
-    right: 0,
+    [theme.breakpoints.up('md')]: {
+      bottom: 20,
+      right: 20,
+      left: 'calc(100% - 80px)',
+    },
     margin: '0 auto',
   },
 });
@@ -62,8 +67,8 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     const { getTabs, getUser } = this.props;
-    getTabs();
-    getUser();
+    if (this.props.tabs.length === 0) getTabs();
+    if (!this.props.user) getUser();
   }
 
   render() {
