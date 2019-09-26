@@ -1,4 +1,4 @@
-import { GET_USER_FAILURE, GET_USER_START, GET_USER_SUCCESS } from './user.actions';
+import { GET_USER_SUCCESS, GET_USER_START, GET_USER_FAILURE } from './user.actions';
 import { EDIT_USER_SUCCESS, EDIT_USER_FAILURE, EDIT_USER_START } from './user.actions';
 
 const initialState = {
