@@ -35,6 +35,7 @@ export const SET_CATEGORY_FAILURE = 'SET_CATEGORY_FAILURE';
 export const SET_TAB_ERROR = 'SET_TAB_ERROR';
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
+//END POINT FOR TABS
 const endpoint = 'https://bw-tabless.herokuapp.com';
 
 //GET TABS

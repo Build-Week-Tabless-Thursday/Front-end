@@ -28,8 +28,10 @@ export const DELETE_ACCOUNT_FAILURE = 'DELETE_ACCOUNT_START';
 // ERRORS
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
+// END POINT FOR ALL THE AUTHORIZATION ACTIONS
 const endpoint = 'https://bw-tabless.herokuapp.com';
 
+//CHECK TOKEN ACTION
 export const checkToken = () => dispatch => {
   dispatch({ type: CHECK_TOKEN_START });
   try {
@@ -40,6 +42,7 @@ export const checkToken = () => dispatch => {
   }
 };
 
+//LOGIN ACTION
 export const login = credentials => dispatch => {
   dispatch({ type: LOGIN_START });
   return axios
@@ -52,6 +55,7 @@ export const login = credentials => dispatch => {
     });
 };
 
+//SIGN UP ACTION
 export const signup = credentials => dispatch => {
   dispatch({ type: SIGNUP_START });
   axios
@@ -64,6 +68,7 @@ export const signup = credentials => dispatch => {
     });
 };
 
+//SIGN OUT ACTION
 export const signout = () => dispatch => {
   dispatch({ type: SIGNOUT_START });
   try {
@@ -73,6 +78,7 @@ export const signout = () => dispatch => {
   }
 };
 
+//DELETE ACCOUNT
 export const deleteAccount = credentials => dispatch => {
   dispatch({ type: DELETE_ACCOUNT_START });
   axios
