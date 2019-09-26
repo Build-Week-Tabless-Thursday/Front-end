@@ -5,7 +5,6 @@ import { Menu, Search, Share } from '@material-ui/icons';
 
 import { circleInsetBar } from '../../theme/var.theme';
 import { useRouter } from '../../hooks/router.hook';
-import { TabSearch } from '../tab/search.component';
 
 const useStyles = makeStyles(theme => ({
   text: {
@@ -55,12 +54,7 @@ const NavBar = ({ excludeRoutes, onMenu, onShare, onSearch }) => {
           <IconButton color="inherit" onClick={onSearch}>
             <Search />
           </IconButton>
-          <IconButton
-            edge="end"
-            color="inherit"
-            // onClick={onShare}
-            onClick={TabSearch}
-          >
+          <IconButton edge="end" color="inherit">
             <Share />
           </IconButton>
         </Toolbar>
