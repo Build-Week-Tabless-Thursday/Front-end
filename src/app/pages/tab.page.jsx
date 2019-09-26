@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { AppBar, CardMedia, Icon, IconButton, Toolbar } from '@material-ui/core';
 
-import { getTab, addTab } from '../state/actions';
+import { getTab, addTab, editTab } from '../state/actions';
 import { Input } from '../components/reusable/input.component';
 
 const styles = theme => ({
@@ -48,7 +48,7 @@ const styles = theme => ({
 
 @connect(
   state => ({ categories: state.tabs.categories }),
-  { getTab, addTab }
+  { getTab, addTab, editTab }
 )
 @withRouter
 @withStyles(styles)
@@ -62,6 +62,7 @@ class TabPage extends React.Component {
     else this.state = { tab: {} };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(key) {
@@ -75,18 +76,31 @@ class TabPage extends React.Component {
     };
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    const { addTab, editTab, match, history, onError } = this.props;
+    const { tab } = this.state;
+    const submit = match.params.id ? editTab : addTab;
+    try {
+      if (!tab.title) throw new Error('A title is required...');
+      if (!tab.url) throw new Error('A URL is required...');
+      submit(tab, match.params.id);
+      history.goBack();
+    } catch (err) {
+      onError(err.toString());
+    }
+  }
+
   render() {
     try {
       if (!this.state) return <div>Loading</div>;
       const { tab } = this.state;
-      const { categories, classes, history, addTab } = this.props;
+      const { categories, classes, history } = this.props;
 
       return (
-        <div className={classes.root}>
-          {tab.preview && (
-            <CardMedia className={classes.img} src={`data:image/jpg;base64,  ${tab.preview}`} component="img" />
-          )}
-          <div className={classes.inputs}>
+        <form className={classes.root} onSubmit={this.handleSubmit}>
+          {tab.preview && <CardMedia className={classes.img} src={tab.preview} component="img" />}
+          <div className={classes.inputs} style={{ backgroundColor: tab.backgroundColor }}>
             <Input
               elevation={8}
               leadingIcon="bookmark"
@@ -124,22 +138,27 @@ class TabPage extends React.Component {
               placeholder="Note"
               multiline
               rows={3}
-              value={tab.note || ''}
-              onChange={this.handleChange('note')}
+              value={tab.notes || ''}
+              onChange={this.handleChange('notes')}
             />
           </div>
-          <AppBar className={classes.appBar} color="primary" elevation={0}>
+          <AppBar
+            className={classes.appBar}
+            color="primary"
+            style={{ backgroundColor: tab.backgroundColor }}
+            elevation={0}
+          >
             <Toolbar>
               <IconButton edge="start" color="inherit" onClick={() => history.goBack()}>
                 <Icon>arrow_back</Icon>
               </IconButton>
               <div className={classes.grow} />
-              <IconButton edge="end" color="inherit" onClick={() => addTab(tab)}>
+              <IconButton type="submit" edge="end" color="inherit">
                 <Icon>check</Icon>
               </IconButton>
             </Toolbar>
           </AppBar>
-        </div>
+        </form>
       );
     } catch (err) {
       return <div>{err.toString()}</div>;
