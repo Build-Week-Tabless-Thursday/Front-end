@@ -72,7 +72,7 @@ export const addTab = tab => (dispatch, getState) => {
   dispatch({ type: ADD_TAB_START });
   const tabs = getState().tabs.list;
 
-  dispatch({ type: ADD_TAB_LOCAL, payload: [...tabs, tabs] });
+  // dispatch({ type: ADD_TAB_LOCAL, payload: [...tabs, tabs] });
   axiosWithAuth()
     .post('https://bw-tabless.herokuapp.com/tab', tab)
     .then(res => {

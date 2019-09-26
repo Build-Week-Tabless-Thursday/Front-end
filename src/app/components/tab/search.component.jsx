@@ -32,12 +32,12 @@ const useStyles = makeStyles(theme => ({
 
 const TabSearch = ({ button, buttonColor, email, link, linkLabel, onSubmit }) => {
   const classes = useStyles({});
-  const [user, setUser] = React.useState({ username: '', email: '', password: '' });
+  const [search, setSearch] = React.useState({ searching: '' });
 
   const handleChange = key => {
     return e => {
-      setUser({
-        ...user,
+      setSearch({
+        ...search,
         [key]: e.target.value,
       });
     };
@@ -45,7 +45,7 @@ const TabSearch = ({ button, buttonColor, email, link, linkLabel, onSubmit }) =>
 
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(user);
+    onSubmit(search);
   };
 
   return (
@@ -56,8 +56,8 @@ const TabSearch = ({ button, buttonColor, email, link, linkLabel, onSubmit }) =>
             elevation={8}
             leadingIcon="search"
             placeholder="Search"
-            value={user.username}
-            onChange={handleChange('search')}
+            value={search.searching}
+            onChange={handleChange('searching')}
           />
         </FormGroup>
       </form>
