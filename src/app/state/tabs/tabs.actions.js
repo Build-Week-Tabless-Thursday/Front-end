@@ -74,9 +74,8 @@ export const addTab = tab => (dispatch, getState) => {
 
   dispatch({ type: ADD_TAB_LOCAL, payload: [...tabs, tabs] });
   axiosWithAuth()
-    .post('https://bw-tabless.herokuapp.com/tabs', tab)
+    .post('https://bw-tabless.herokuapp.com/tab', tab)
     .then(res => {
-      console.log('addTab', res);
       dispatch({ type: ADD_TAB_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -95,13 +94,16 @@ export const getTab = id => () => {
 };
 
 //EDIT TAB
-export const editTabs = (newtab, id) => dispatch => {
+export const editTab = (tab, id) => (dispatch, getState) => {
   dispatch({ type: EDIT_TAB_START });
+  const tabs = getState().tabs.list.filter(tab => tab.id !== id);
+  console.log(tabs);
+
   axiosWithAuth()
-    .put(`https://bw-tabless.herokuapp.com/tab/${id}`, newtab)
+    .put(`https://bw-tabless.herokuapp.com/tab/${id}`, { ...tab, preview: null })
     .then(res => {
       console.log('edit tab', res);
-      dispatch({ type: EDIT_TAB_SUCCESS, payload: res.data });
+      if (res.data) dispatch({ type: EDIT_TAB_SUCCESS, payload: [...tabs, tab] });
     })
     .catch(err => {
       dispatch({ type: EDIT_TAB_FAILURE, payload: err.response });
@@ -111,13 +113,13 @@ export const editTabs = (newtab, id) => dispatch => {
 //DELETE TAB
 export const deleteTab = id => (dispatch, getState) => {
   dispatch({ type: DELETE_TAB_START });
-  const tabs = getState().tabs.list;
+  const tabs = getState().tabs.list.filter(tab => tab.id !== id);
 
   axiosWithAuth()
     .delete(`https://bw-tabless.herokuapp.com/tab/${id}`)
     .then(res => {
-      console.log('edit tab', res);
-      dispatch({ type: DELETE_TAB_SUCCESS, payload: tabs.filter(tab => tab.id !== id) });
+      console.log('Delete tab', res);
+      if (res.data) dispatch({ type: DELETE_TAB_SUCCESS, payload: tabs });
     })
     .catch(err => {
       dispatch({ type: DELETE_TAB_FAILURE, payload: err.response });
@@ -127,10 +129,10 @@ export const deleteTab = id => (dispatch, getState) => {
 //SET CATEGORY
 export const setCategory = category => (dispatch, getState) => {
   dispatch({ type: SET_CATEGORY_START });
-  const categories = getState().tabs.category;
+  const categories = getState().tabs.categories;
 
   try {
-    if (!categories.find(category)) throw new Error('Category is does not exist');
+    if (!categories.find(items => items === category)) throw new Error('Category is does not exist');
     dispatch({ type: SET_CATEGORY_SUCCESS, payload: category });
   } catch (err) {
     dispatch({ type: SET_CATEGORY_FAILURE, payload: err.response });

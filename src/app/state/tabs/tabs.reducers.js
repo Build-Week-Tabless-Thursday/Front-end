@@ -7,7 +7,7 @@ import { SET_CATEGORY_START, SET_CATEGORY_SUCCESS, SET_CATEGORY_FAILURE } from '
 
 const initialState = {
   list: [],
-  categories: [],
+  categories: ['All'],
   category: '',
   error: '',
 };
@@ -36,7 +36,7 @@ export const tabsReducer = (state = initialState, action) => {
     case SET_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: action.payload,
+        categories: ['All', ...action.payload],
       };
     case SET_CATEGORIES_FAILURE:
       return {
