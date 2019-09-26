@@ -28,7 +28,7 @@ export const DELETE_ACCOUNT_FAILURE = 'DELETE_ACCOUNT_START';
 // ERRORS
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
-const endpoint = 'https://tabless-thursdays.herokuapp.com';
+const endpoint = 'https://bw-tabless.herokuapp.com';
 
 export const checkToken = () => dispatch => {
   dispatch({ type: CHECK_TOKEN_START });

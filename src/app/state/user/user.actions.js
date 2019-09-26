@@ -13,7 +13,7 @@ export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 // ERRORS
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
-const endpoint = 'https://tabless-thursdays.herokuapp.com/me';
+const endpoint = 'https://bw-tabless.herokuapp.com/me';
 
 // GET USER
 export const getUser = () => dispatch => {
