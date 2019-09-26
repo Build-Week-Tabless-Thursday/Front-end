@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { AppBar, CardMedia, Icon, IconButton, Toolbar } from '@material-ui/core';
 
-import { getTab, addTab, editTab } from '../state/actions';
+import { getTab, addTab, editTab, setError } from '../state/actions';
 import { Input } from '../components/reusable/input.component';
 import { formatURL } from '../utils/formatURL';
 
@@ -49,7 +49,7 @@ const styles = theme => ({
 
 @connect(
   state => ({ categories: state.tabs.categories }),
-  { getTab, addTab, editTab }
+  { getTab, addTab, editTab, setError }
 )
 @withRouter
 @withStyles(styles)
@@ -94,7 +94,7 @@ class TabPage extends React.Component {
   }
 
   handleError(err) {
-    console.log(err);
+    this.props.setError(err);
   }
 
   render() {
