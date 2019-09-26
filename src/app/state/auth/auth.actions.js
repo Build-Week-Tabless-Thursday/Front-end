@@ -16,7 +16,7 @@ export const DELETE_ACCOUNT_START = 'DELETE_ACCOUNT_START';
 export const DELETE_ACCOUNT_SUCCESS = 'DELETE_ACCOUNT_START';
 export const DELETE_ACCOUNT_FAILURE = 'DELETE_ACCOUNT_START';
 
-export const loginAction = credentials => dispatch => {
+export const login = credentials => dispatch => {
   dispatch({ type: LOGIN_START });
   return axios
     .post('https://bw-tabless.herokuapp.com/login', credentials)
@@ -28,7 +28,20 @@ export const loginAction = credentials => dispatch => {
     });
 };
 
-export const signupAction = credentials => dispatch => {
+export const signup = credentials => dispatch => {
+  dispatch({ type: SIGNUP_START });
+  axios
+    .post('https://bw-tabless.herokuapp.com/register', credentials)
+    .then(res => {
+      dispatch({ type: SIGNUP_SUCCESS, payload: res.data.token });
+    })
+
+    .catch(err => {
+      dispatch({ type: SIGNUP_FAILURE, payload: err.response });
+    });
+};
+
+export const signout = () => dispatch => {
   dispatch({ type: SIGNOUT_START });
   try {
     dispatch({ type: SIGNOUT_SUCCESS });
@@ -37,22 +50,10 @@ export const signupAction = credentials => dispatch => {
   }
 };
 
-export const signoutAction = () => dispatch => {
-  dispatch({ type: SIGNUP_START });
-  axios
-    .post('https://bw-tabless.herokuapp.com/erase')
-    .then(res => {
-      dispatch({ type: SIGNUP_SUCCESS, payload: res.data.token });
-    })
-    .catch(err => {
-      dispatch({ type: SIGNUP_FAILURE, payload: err.response });
-    });
-};
-
-export const deleteAccountAction = credentials => dispatch => {
+export const deleteAccount = credentials => dispatch => {
   dispatch({ type: DELETE_ACCOUNT_START });
   axios
-    .post('https://bw-tabless.herokuapp.com/erase', credentials)
+    .post('https://bw-tabless.herokuapp.com/me', credentials)
     .then(res => {
       dispatch({ type: DELETE_ACCOUNT_SUCCESS });
     })

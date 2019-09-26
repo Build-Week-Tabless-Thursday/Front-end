@@ -56,14 +56,12 @@ export const authReducer = (state = initialState, action) => {
       localStorage.removeItem('token');
       return {
         ...state,
-        token: action.payload,
+        token: '',
         error: '',
       };
     case SIGNOUT_FAILURE:
       return {
         ...state,
-        token: '',
-        error: action.payload,
       };
 
     case DELETE_ACCOUNT_START:
