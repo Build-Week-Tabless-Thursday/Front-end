@@ -184,4 +184,6 @@ const circleInsetBar = `polygon(0 0,
   100% 100%,
   0 100%);`;
 
-export { circleInsetBar };
+const defaultImg = 'https://animalcenter.org/AdoptionPics/105484.jpg';
+
+export { circleInsetBar, defaultImg };

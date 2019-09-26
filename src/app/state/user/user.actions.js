@@ -13,27 +13,27 @@ export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 const endpoint = 'https://bw-tabless.herokuapp.com/me';
 
 export const getUser = () => dispatch => {
-  dispatch({ GET_USER_START });
+  dispatch({ type: GET_USER_START });
   axiosWithAuth()
     .get(endpoint)
     .then(res => {
       console.log('getUser', res);
-      dispatch({ GET_USER_SUCCESS, payload: res.data });
+      dispatch({ type: GET_USER_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({ GET_USER_FAILURE, payload: err.response });
+      dispatch({ type: GET_USER_FAILURE, payload: err.response });
     });
 };
 
 export const editUser = newUser => dispatch => {
-  dispatch({ EDIT_USER_START });
+  dispatch({ type: EDIT_USER_START });
   axiosWithAuth()
     .put(endpoint, newUser)
     .then(res => {
       console.log('edit user', res);
-      dispatch({ EDIT_USER_SUCCESS, payload: res.data });
+      dispatch({ type: EDIT_USER_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({ EDIT_USER_FAILURE, payload: err.response });
+      dispatch({ type: EDIT_USER_FAILURE, payload: err.response });
     });
 };

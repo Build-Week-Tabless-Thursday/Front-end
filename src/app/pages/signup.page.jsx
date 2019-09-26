@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core';
 
-import { signupAction } from '../state/actions';
+import { signup } from '../state/actions';
 import { UserForm } from '../components/user/form.component';
 
 const styles = theme => ({
@@ -22,7 +22,7 @@ const styles = theme => ({
     token: state.auth.token,
     error: state.auth.error,
   }),
-  { signupAction }
+  { signup }
 )
 @withStyles(styles)
 class SignupPage extends React.Component {
@@ -36,7 +36,7 @@ class SignupPage extends React.Component {
   }
 
   handleSubmit = user => {
-    this.props.signupAction(user);
+    this.props.signup(user);
   };
 
   render() {

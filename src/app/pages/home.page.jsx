@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Fab, Typography, withStyles } from '@material-ui/core';
 import { Add, NoteOutlined } from '@material-ui/icons';
 
-import { getTabs } from '../state/actions';
+import { getTabs, getUser } from '../state/actions';
 import { TabList } from '../components/tab/list.component';
 
 const styles = theme => ({
@@ -50,7 +50,7 @@ const styles = theme => ({
     tabs: state.tabs.list,
     category: state.tabs.category,
   }),
-  { getTabs }
+  { getTabs, getUser }
 )
 @withRouter
 @withStyles(styles)
@@ -61,15 +61,14 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    const { getTabs } = this.props;
+    const { getTabs, getUser } = this.props;
     getTabs();
+    getUser();
   }
 
   render() {
-    const category = '';
-    const { classes, history, tabs } = this.props;
-    const filteredTabs = category ? tabs.filter(tab => tab.category === category) : tabs;
-    console.log(this.props);
+    const { classes, history, tabs, category } = this.props;
+    const filteredTabs = category ? tabs.filter(tab => tab.category === category || category === 'All') : tabs;
 
     return (
       <main className={classes.root}>

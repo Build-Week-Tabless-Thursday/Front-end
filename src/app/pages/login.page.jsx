@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { loginAction } from '../state/actions';
+import { login } from '../state/actions';
 import { UserForm } from '../components/user/form.component';
 import { withStyles } from '@material-ui/styles';
 
@@ -22,7 +22,7 @@ const styles = theme => ({
     token: state.auth.token,
     error: state.auth.error,
   }),
-  { loginAction }
+  { login }
 )
 @withRouter
 @withStyles(styles)
@@ -37,7 +37,7 @@ class LoginPage extends React.Component {
   }
 
   handleSubmit = user => {
-    this.props.loginAction(user);
+    this.props.login(user);
   };
 
   render() {
