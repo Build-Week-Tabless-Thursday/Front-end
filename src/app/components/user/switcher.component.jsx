@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useStore } from 'react-redux';
 
 import { Button, Typography, makeStyles } from '@material-ui/core';
@@ -65,11 +65,11 @@ const UserSwitcher = ({ onSignOut }) => {
         </Typography>
       </div>
 
-      <NavLink className={classes.link} to="/login">
+      <Link className={classes.link} to="/login">
         <Button className={classes.signout} onClick={handleSignOut}>
           Sign Out
         </Button>
-      </NavLink>
+      </Link>
     </section>
   );
 };

@@ -11,7 +11,6 @@ import { PrivateRoutes } from './components/reusable/private-route.component';
 
 import { HomePage } from './pages/home.page';
 import { LoginPage } from './pages/login.page';
-import { SharePage } from './pages/share.page';
 import { TabPage } from './pages/tab.page';
 
 import { store } from './state/store';
@@ -30,7 +29,6 @@ export class App extends React.Component {
                 <PrivateRoutes>
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/create" component={TabPage} />
-                  <Route exact path="/share/:uuid" component={SharePage} />
                   <Route exact path="/tab/:id" component={TabPage} />
                 </PrivateRoutes>
 

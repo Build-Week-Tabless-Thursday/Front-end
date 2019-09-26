@@ -29,7 +29,12 @@ const styles = theme => ({
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { action: props.login, button: 'LOGIN', email: false, linkLabel: 'CREATE AN ACCOUNT' };
+    this.state = {
+      action: props.login,
+      button: 'LOGIN',
+      email: false,
+      linkLabel: 'CREATE AN ACCOUNT',
+    };
   }
 
   componentDidMount() {

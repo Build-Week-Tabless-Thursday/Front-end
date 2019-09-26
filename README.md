@@ -1,4 +1,5 @@
 # Front-end
+
 ## Proposal
 
 ### What problem does your app solve?
@@ -19,6 +20,7 @@ Easier to delete or add tabs then the built in bookmarking systems in most brows
 For the Tab-Hoarder in all of us
 
 ## Features
+
 ### What features are required for your minimum viable product?
 Sign in.
 Navigation on all pages.
@@ -37,14 +39,15 @@ Toby - (Chrome Extension) Provides a drag and drop interface for managing tabs i
 Evernote - Allows users to stay more organized by putting all their notes in one easy to access place. Also allows for clipping off the web.
 
 ## Design - Planning
+
 ### What design system will you use?
 Material Design
 
 ### What will your user flow be?
 Sign in / Create an Account ->
- -- Home Page with most Recent tabs -> 
+ -- Home Page with most Recent tabs ->
  -- -- User taps on tab to open it
- -- -- User taps add to add a tab 
+ -- -- User taps add to add a tab
  -- -- User taps nav to see categories and user switcher ->
  -- -- --  User taps category to go to category page
  -- -- --  User taps user account to sign out or edit
@@ -52,15 +55,12 @@ Sign in / Create an Account ->
 ### What is the URL to your wireframes?
 [Figma Wireframes](https://www.figma.com/file/FUkepkef8LqN01Eg7fjUK7/Design?node-id=0%3A1)
 
-
-
-
 ## Frameworks - Libraries
 
 ### What 3rd party frameworks/libraries are you considering using?
 - Server: Node.js, Express, SQLite, JSON Web Token, Cors, Helmet, Kenex, Jest, Supertest
 - Client: React,Axios, Materail-UI, React Anime, Babel, React Testing Library, Enzyme, Jest
-- Web: Material Icons, Less 
+- Web: Material Icons, Less
 
 ### Do APIs require you to contact its maintainer to gain access?
 All of our APIs are internal.
@@ -70,7 +70,6 @@ No.
 
 ### Have you considered using Apple Frameworks? (MapKit, Healthkit, ARKit?)
 N\A
-
 
 ## Target Audience
 
@@ -85,10 +84,45 @@ That they prefer bookmarks.
 ### Have you validated the problem and your solution with your target audience? How?
 They wouldn't use it.
 
-
 ## Research
 
 ### Research thoroughly before writing a single line of code. Solidify the features of your app conceptually before implementation. Spend the weekend researching so you can hit the ground running on Monday.
 Prototype Key Feature(s)
 
 - This is the “bread and butter” of the app, this is what makes your app yours. Calculate how long it takes to implement these features and triple the time estimated. That way you’ll have plenty of time to finish. It is preferred to drop features and spend more time working on your MVP features if needed.
+
+## Contribue
+
+### Download Source
+
+```bash
+git clone https://github.com/Build-Week-Tabless-Thursday/Front-end.git
+```
+
+### Branch
+
+```bash
+git checkout -b <your name>
+```
+
+### Install Dependencies
+
+```bash
+yarn
+```
+
+### Start Development Server
+
+```bash
+yarn start
+```
+
+### Upload changes
+
+```bash
+git push origin <your-name>
+```
+
+### Create Pull Request
+
+[Pull Request](https://github.com/Build-Week-Tabless-Thursday/Front-end/compare)

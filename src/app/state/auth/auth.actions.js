@@ -1,25 +1,31 @@
 import axios from 'axios';
 
+//CHECK TOKEN
 export const CHECK_TOKEN_START = 'CHECK_TOKEN_START';
 export const CHECK_TOKEN_SUCCESS = 'CHECK_TOKEN_SUCCESS';
 export const CHECK_TOKEN_FAILURE = 'CHECK_TOKEN_FAILURE';
 
+//LOGIN
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
+// SIGNUP
 export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
+// SIGNOUT
 export const SIGNOUT_START = 'SIGNOUT_START';
 export const SIGNOUT_SUCCESS = 'SIGNOUT_SUCCESS';
 export const SIGNOUT_FAILURE = 'SIGNOUT_FAILURE';
 
+// DELETE ACCOUNT
 export const DELETE_ACCOUNT_START = 'DELETE_ACCOUNT_START';
 export const DELETE_ACCOUNT_SUCCESS = 'DELETE_ACCOUNT_START';
 export const DELETE_ACCOUNT_FAILURE = 'DELETE_ACCOUNT_START';
 
+// ERRORS
 export const CLEAR_ERROR = 'CLEAR_ERROR';
 
 const endpoint = 'https://tabless-thursdays.herokuapp.com';
@@ -53,9 +59,8 @@ export const signup = credentials => dispatch => {
     .then(res => {
       dispatch({ type: SIGNUP_SUCCESS, payload: res.data.token });
     })
-
     .catch(err => {
-      dispatch({ type: SIGNUP_FAILURE, payload: err.response.data.message });
+      dispatch({ type: SIGNUP_FAILURE, payload: err.response.data.error });
     });
 };
 
