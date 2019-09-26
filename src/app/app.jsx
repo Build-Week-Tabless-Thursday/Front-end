@@ -8,7 +8,7 @@ import { CssBaseline } from '@material-ui/core';
 
 import { NavBar } from './components/nav/bar.component';
 import { NavDrawer } from './components/nav/drawer.component';
-import { PrivateRoute } from './components/reusable/private-route.component';
+import { PrivateRoutes } from './components/reusable/private-route.component';
 
 import { HomePage } from './pages/home.page';
 import { LoginPage } from './pages/login.page';
@@ -44,10 +44,13 @@ export class App extends React.Component {
               <Switch>
                 <Route exact path="/login" component={LoginPage} />
                 <Route exact path="/signup" component={SignupPage} />
-                <PrivateRoute exact path="/" component={HomePage} />
-                <PrivateRoute exact path="/create" component={TabPage} />
-                <PrivateRoute exact path="/share/:uuid" component={SharePage} />
-                <PrivateRoute exact path="/tab/:id" component={TabPage} />
+
+                <PrivateRoutes>
+                  <Route exact path="/" component={HomePage} />
+                  <Route exact path="/create" component={TabPage} />
+                  <Route exact path="/share/:uuid" component={SharePage} />
+                  <Route exact path="/tab/:id" component={TabPage} />
+                </PrivateRoutes>
 
                 {/* TESTING */}
                 <Route exact path="/searchbar" component={TabSearch} />
