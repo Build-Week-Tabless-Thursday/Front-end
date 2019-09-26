@@ -37,18 +37,18 @@ const TabCard = ({ tab }) => {
   const { navigate } = useLocation();
 
   const [colors, setColors] = React.useState({});
-  React.useEffect(() => {
-    const vibrant = new Vibrant(`data:image/jpg;base64,  ${preview}`);
-    vibrant.getPalette((_, palette) => {
-      setColors({ card: palette['Vibrant'].getHex(), text: palette['DarkMuted'].getBodyTextColor() });
-    });
-  }, [tab]);
+  // React.useEffect(() => {
+  //   const vibrant = new Vibrant(preview);
+  //   vibrant.getPalette((_, palette) => {
+  //     setColors({ card: palette['Vibrant'].getHex(), text: palette['DarkMuted'].getBodyTextColor() });
+  //   });
+  // }, [tab]);
 
   const { title, url, preview } = tab;
   return (
     <Card className={classes.card} style={{ backgroundColor: colors.card, opacity: colors.card ? 100 : 100 }}>
       <a href={url}>
-        <CardMedia className={classes.preview} src={`data:image/jpg;base64,  ${preview}`} component="img" />
+        <CardMedia className={classes.preview} src={preview} component="img" />
       </a>
 
       <Typography component="h5" variant="h5" className={classes.overlay}>
