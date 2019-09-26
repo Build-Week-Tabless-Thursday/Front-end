@@ -11,19 +11,15 @@ const useStyles = makeStyles({
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
-  // username: {
-  //   display: 'flex',
-  //   justifyContent: 'center',
-  //   width: '25%',
-  // },
-  signout: {
+  signoutbutton: {
     textDecoration: 'none',
     alignItems: 'center',
     color: 'black',
   },
 });
 
-const UserSwitcher = () => {
+const UserSwitcher = props => {
+  console.log('signout', signout);
   const classes = useStyles();
 
   const [user, setUser] = React.useState();
@@ -40,11 +36,18 @@ const UserSwitcher = () => {
   return (
     <section className={classes.container}>
       <h1 className={classes.username}> User: {user && user.username}</h1>
-      <h1>
-        <NavLink className={classes.signout}> Sign Out </NavLink>
-      </h1>
+      {/* <h1 className={classes.signout} onClick={signout}>
+        {' '}
+        Sign Out{' '}
+      </h1> */}
+
+      <NavLink className={classes.signoutbutton} to="/login" onClick={() => localStorage.removeItem('token')}>
+        <h1> Sign Out </h1>
+      </NavLink>
     </section>
   );
 };
 
 export { UserSwitcher };
+
+//useLocation
