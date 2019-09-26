@@ -6,8 +6,7 @@ import { Theme } from './theme/config.theme';
 import { ThemeProvider } from '@material-ui/styles';
 import { CssBaseline } from '@material-ui/core';
 
-import { NavBar } from './components/nav/bar.component';
-import { NavDrawer } from './components/nav/drawer.component';
+import { ErrorComponent } from './components/reusable/error.component';
 import { PrivateRoutes } from './components/reusable/private-route.component';
 
 import { HomePage } from './pages/home.page';
@@ -16,14 +15,8 @@ import { SharePage } from './pages/share.page';
 import { TabPage } from './pages/tab.page';
 
 import { store } from './state/store';
-import { TabSearch } from './components/tab/search.component';
 
 export class App extends React.Component {
-  constructor() {
-    super();
-    this.state = { drawerOpen: false, searchOpen: false };
-  }
-
   render() {
     return (
       <React.Fragment>
@@ -31,17 +24,6 @@ export class App extends React.Component {
           <CssBaseline />
           <Provider store={store}>
             <Router>
-              <NavBar
-                onMenu={() => this.setState({ drawerOpen: true })}
-                onSearch={() => this.setState({ searchOpen: true })}
-                excludeRoutes={['/login', '/create', '/tab']}
-              />
-              <NavDrawer
-                open={this.state.drawerOpen}
-                onChange={() => this.setState({ drawerOpen: false })}
-                onClose={() => this.setState({ drawerOpen: false })}
-                excludeRoutes={['/login', '/create', '/tab']}
-              />
               <Switch>
                 <Route exact path="/login" component={LoginPage} />
 
@@ -52,12 +34,10 @@ export class App extends React.Component {
                   <Route exact path="/tab/:id" component={TabPage} />
                 </PrivateRoutes>
 
-                {/* TESTING */}
-                <Route exact path="/searchbar" component={TabSearch} />
-
                 {/* 404 */}
                 <Route exact component={LoginPage} />
               </Switch>
+              <ErrorComponent />
             </Router>
           </Provider>
         </ThemeProvider>
