@@ -14,6 +14,7 @@ const initialState = {
   error: '',
 };
 
+//REDUCER FOR AUTHORIZATION
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
     // CHECK TOKEN
