@@ -6,6 +6,7 @@ import { Card, CardActions, CardMedia, Icon, IconButton, Typography, makeStyles 
 import { defaultImg } from '../../theme/var.theme';
 import { useLocation } from '../../hooks/router.hook';
 import { deleteTab } from '../../state/actions';
+import { Confirm } from '../reusable/Confirm.component';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -37,36 +38,45 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TabCard = ({ tab }) => {
+  const [state, setState] = React.useState({ confirmIsOpen: false });
   const classes = useStyles({});
   const dispatch = useDispatch();
   const store = useStore();
   const { navigate } = useLocation();
   const { title, url, preview, color, backgroundColor } = tab;
   return (
-    <Card className={classes.card} style={{ backgroundColor }}>
-      <a href={url}>
-        <CardMedia className={classes.preview} src={preview || defaultImg} component="img" />
-      </a>
+    <React.Fragment>
+      <Card className={classes.card} style={{ backgroundColor }}>
+        <a href={url}>
+          <CardMedia className={classes.preview} src={preview || defaultImg} component="img" />
+        </a>
 
-      <Typography component="h5" variant="h5" className={classes.overlay}>
-        {title}
-      </Typography>
+        <Typography component="h5" variant="h5" className={classes.overlay}>
+          {title}
+        </Typography>
 
-      <CardActions className={classes.icons} style={{ visibility: tab.id ? 'unset' : 'hidden' }}>
-        <IconButton onClick={() => navigate(`/tab/${tab.id}`)}>
-          <Icon className={classes.icon} style={{ color }}>
-            edit
-          </Icon>
-        </IconButton>
+        <CardActions className={classes.icons} style={{ visibility: tab.id ? 'unset' : 'hidden' }}>
+          <IconButton onClick={() => navigate(`/tab/${tab.id}`)}>
+            <Icon className={classes.icon} style={{ color }}>
+              edit
+            </Icon>
+          </IconButton>
 
-        <div className={classes.grow} />
-        <IconButton onClick={() => deleteTab(tab.id)(dispatch, store.getState)}>
-          <Icon className={classes.icon} style={{ color }}>
-            delete
-          </Icon>
-        </IconButton>
-      </CardActions>
-    </Card>
+          <div className={classes.grow} />
+          {/* <IconButton onClick={() => deleteTab(tab.id)(dispatch, store.getState)}> */}
+          <IconButton onClick={() => setState({ confirmIsOpen: true })}>
+            <Icon className={classes.icon} style={{ color }}>
+              delete
+            </Icon>
+          </IconButton>
+        </CardActions>
+      </Card>
+      <Confirm
+        open={state.confirmIsOpen}
+        onClose={() => setState({ confirmIsOpen: false })}
+        action={() => deleteTab(tab.id)(dispatch, store.getState)}
+      />
+    </React.Fragment>
   );
 };
 

@@ -5,11 +5,13 @@ import { Menu, Search, Share } from '@material-ui/icons';
 
 import { circleInsetBar } from '../../theme/var.theme';
 import { useRouter } from '../../hooks/router.hook';
+import { TabSearch } from '../tab/search.component';
 
 const useStyles = makeStyles(theme => ({
   text: {
     padding: theme.spacing(2, 2, 0),
   },
+  search: {},
   paper: {
     paddingBottom: 50,
   },
@@ -50,10 +52,15 @@ const NavBar = ({ excludeRoutes, onMenu, onShare, onSearch }) => {
             <Menu />
           </IconButton>
           <div className={classes.grow} />
-          <IconButton color="inherit" onClick={onShare}>
+          <IconButton color="inherit" onClick={onSearch}>
             <Search />
           </IconButton>
-          <IconButton edge="end" color="inherit" onClick={onSearch}>
+          <IconButton
+            edge="end"
+            color="inherit"
+            // onClick={onShare}
+            onClick={TabSearch}
+          >
             <Share />
           </IconButton>
         </Toolbar>
